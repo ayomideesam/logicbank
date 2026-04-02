@@ -294,15 +294,9 @@
     justify-self: center;
 }
 
-/* Hidden file input — label triggers it */
+/* Hidden file input — triggered programmatically via triggerFileInput() */
 .file-input-hidden {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 1;
+    display: none;
 }
 
 /* Make chosen-file label click through to input, not compete with it */
