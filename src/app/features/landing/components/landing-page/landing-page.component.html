@@ -1,0 +1,36 @@
+<div class="page-wrapper" [class.search-active]="isSearchActive()">
+
+  <!-- ===================== HEADER ===================== -->
+  <app-portal-header
+    [searchActive]="isSearchActive()"
+    (searchToggle)="onSearchToggle($event)">
+  </app-portal-header>
+
+  <!-- ===================== PORTAL BANNER ===================== -->
+  <div class="portal-banner" role="banner">
+    <span class="portal-banner-title">Account Management Portal</span>
+  </div>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="portal-content">
+    <p class="portal-subtitle">Kindly select an account management service</p>
+
+    <!-- 3-column service cards grid -->
+    <div class="cards-grid" role="list" aria-label="Account management services">
+      @for (card of services(); track card.id) {
+        <div role="listitem">
+          <app-service-card [card]="card" />
+        </div>
+      }
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="portal-footer" aria-label="Site footer">
+    <img
+      src="assets/img/footer.png"
+      alt="First Bank footer — links for Banking, Security, Contact Us and Legal"
+      class="footer-img" />
+  </footer>
+
+</div>

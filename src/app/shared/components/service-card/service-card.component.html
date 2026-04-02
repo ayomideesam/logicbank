@@ -1,0 +1,31 @@
+<article class="service-card">
+  <!-- Icon box -->
+  <div class="card-icon-box">
+    <div class="card-icon-inner" [innerHTML]="card.iconSvg"></div>
+  </div>
+
+  <!-- Title -->
+  <h3 class="card-title">{{ card.title }}</h3>
+
+  <!-- Requirements -->
+  <ul class="card-requirements" aria-label="Required documents">
+    @for (req of card.requirements; track req) {
+      <li class="card-requirement-item">
+        <span class="check-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.5 7L5.5 10L11.5 4" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="req-text">{{ req }}</span>
+      </li>
+    }
+  </ul>
+
+  <!-- CTA Link -->
+  <a
+    [routerLink]="card.route"
+    class="card-link"
+    [attr.aria-label]="card.linkText">
+    {{ card.linkText }}
+  </a>
+</article>

@@ -1,0 +1,112 @@
+/* ============================================================
+   Service Card Component
+   ============================================================ */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  min-height: 315px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  gap: 12px;
+  transition: box-shadow 0.2s ease;
+}
+
+.service-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 40, 85, 0.1);
+}
+
+/* Icon box */
+.card-icon-box {
+  width: 48px;
+  height: 48px;
+  background: var(--color-primary);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-icon-inner {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon-inner svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Title */
+.card-title {
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Requirements list */
+.card-requirements {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.card-requirement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.check-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.req-text {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+/* CTA link */
+.card-link {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 8px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.card-link:hover {
+  color: var(--color-link-hover);
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  .service-card {
+    width: 100%;
+    min-height: unset;
+  }
+}
