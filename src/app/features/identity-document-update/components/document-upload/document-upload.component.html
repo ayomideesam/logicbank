@@ -112,10 +112,9 @@
                             <p class="upload-hint">Supported files: PDF and JPG, 10.00MB maximum size</p>
                         </div>
                         }
-                        <input id="frontFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
-                            (click)="$event.stopPropagation()"
-                            (change)="onFrontFileSelect($event)" aria-label="Upload identity document front" />
                     </div>
+                    <input id="frontFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
+                        (change)="onFrontFileSelect($event)" aria-label="Upload identity document front" />
                     @if (frontFileError()) {
                     <p class="upload-error" role="alert">{{ frontFileError() }}</p>
                     }
@@ -158,10 +157,9 @@
                             <p class="upload-hint">Supported files: PDF and JPG, 10.00MB maximum size</p>
                         </div>
                         }
-                        <input id="backFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
-                            (click)="$event.stopPropagation()"
-                            (change)="onBackFileSelect($event)" aria-label="Upload identity document back" />
                     </div>
+                    <input id="backFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
+                        (change)="onBackFileSelect($event)" aria-label="Upload identity document back" />
                     @if (backFileError()) {
                     <p class="upload-error" role="alert">{{ backFileError() }}</p>
                     }
@@ -204,10 +202,9 @@
                         <p class="upload-hint">Supported files: PDF and JPG, 10.00MB maximum size</p>
                     </div>
                     }
-                    <input id="utilityFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
-                        (click)="$event.stopPropagation()"
-                        (change)="onUtilityFileSelect($event)" aria-label="Upload utility bill" />
                 </div>
+                <input id="utilityFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
+                    (change)="onUtilityFileSelect($event)" aria-label="Upload utility bill" />
                 @if (utilityFileError()) {
                 <p class="upload-error" role="alert">{{ utilityFileError() }}</p>
                 }

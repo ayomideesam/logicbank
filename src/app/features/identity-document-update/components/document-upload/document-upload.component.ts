@@ -49,6 +49,7 @@ export class DocumentUploadComponent {
 
   selectDocType(type: IdDocumentType): void {
     this.docType.set(type);
+    this.docNumber.set('');
     this.dropdownOpen.set(false);
     // All doc types now show Front+Back — clear utility bill if lingering
     this.idService.patchForm({ frontFile: null, backFile: null, utilityBillFile: null });
