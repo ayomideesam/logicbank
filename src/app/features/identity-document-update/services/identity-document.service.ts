@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-export type IdDocumentType = 'Voters Card' | 'Utility Bill';
+export type IdDocumentType = 'Voters Card' | 'Passport' | 'Identity Document';
 
 export interface UploadedFile {
   file: File;

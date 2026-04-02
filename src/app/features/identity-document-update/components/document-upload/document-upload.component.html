@@ -17,21 +17,21 @@
                 <div class="title-underline"></div>
             </div>
 
-            <!-- ── Account Number (pre-filled, read-only) ───────────────────── -->
+            <!-- Account Number (pre-filled, read-only) -->
             <div class="field-group">
                 <label class="field-label" for="accountNumber">Account Number</label>
                 <input id="accountNumber" class="field-input" type="text" [value]="accountNumber()" readonly
                     aria-readonly="true" />
             </div>
 
-            <!-- ── NIN ───────────────────────────────────────────────────────── -->
+            <!-- NIN -->
             <div class="field-group">
                 <label class="field-label" for="nin">NIN</label>
                 <input id="nin" class="field-input" type="text" placeholder="Enter your NIN" [value]="nin()"
                     (input)="nin.set($any($event.target).value)" autocomplete="off" aria-required="true" />
             </div>
 
-            <!-- ── Identity Document Type (Custom Dropdown) ──────────────────── -->
+            <!-- Identity Document Type (Custom Dropdown) -->
             <div class="field-group">
                 <label class="field-label" for="docTypeBtn">Identity Document Type</label>
                 <div class="dropdown-wrapper" [class.open]="dropdownOpen()">
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <!-- ── Identity Document Number ──────────────────────────────────── -->
+            <!-- Identity Document Number -->
             <div class="field-group">
                 <label class="field-label" for="docNumber">Identity Document Number</label>
                 <input id="docNumber" class="field-input" type="text" placeholder="Enter document number"
@@ -71,8 +71,8 @@
                     aria-required="true" />
             </div>
 
-            <!-- ── File Upload Zones ──────────────────────────────────────────── -->
-            @if (docType() === 'Voters Card') {
+            <!-- File Upload Zones (Front + Back for all doc types) -->
+            @if (docType()) {
             <div class="id-upload-row">
                 <!-- Front -->
                 <div class="upload-zone-wrapper">
@@ -98,7 +98,8 @@
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.5 14.5L11.5 10.5L15.5 14.5" stroke="#002855" stroke-width="1.4"
                                     stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round" />
+                                <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4"
+                                    stroke-linecap="round" />
                                 <path
                                     d="M19.5 16.5C21.16 15.47 22 13.5 22 11.5C22 8.19 19.31 5.5 16 5.5C15.72 5.5 15.46 5.52 15.2 5.56C14.43 2.68 11.8 0.5 8.5 0.5C4.36 0.5 1 3.86 1 8C1 10.07 1.86 11.93 3.25 13.27"
                                     stroke="#002855" stroke-width="1.4" stroke-linecap="round"
@@ -142,7 +143,8 @@
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.5 14.5L11.5 10.5L15.5 14.5" stroke="#002855" stroke-width="1.4"
                                     stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round" />
+                                <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4"
+                                    stroke-linecap="round" />
                                 <path
                                     d="M19.5 16.5C21.16 15.47 22 13.5 22 11.5C22 8.19 19.31 5.5 16 5.5C15.72 5.5 15.46 5.52 15.2 5.56C14.43 2.68 11.8 0.5 8.5 0.5C4.36 0.5 1 3.86 1 8C1 10.07 1.86 11.93 3.25 13.27"
                                     stroke="#002855" stroke-width="1.4" stroke-linecap="round"
@@ -164,33 +166,38 @@
             </div>
             }
 
-            <!-- ── Utility Bill ────────────────────────────────────────────────────── -->
-            @if (docType() === 'Utility Bill') {
+            <!-- Utility Bill upload zone (shown after "Upload now") -->
+            @if (showUtilityUpload()) {
             <div class="upload-zone-wrapper full-width">
                 <span class="upload-zone-label">Upload your Utility Bill</span>
-                <div class="upload-zone" [class.has-file]="form().utilityBillFile" [class.drag-over]="utilityDragOver()"
-                    (dragover)="onDragOver('utility', $event)" (dragleave)="onDragLeave('utility')"
-                    (drop)="onDrop('utility', $event)" role="region" aria-label="Utility bill upload">
+                <div class="upload-zone" [class.has-file]="form().utilityBillFile"
+                    [class.drag-over]="utilityDragOver()" (dragover)="onDragOver('utility', $event)"
+                    (dragleave)="onDragLeave('utility')" (drop)="onDrop('utility', $event)" role="region"
+                    aria-label="Utility bill upload">
                     @if (form().utilityBillFile; as f) {
                     <div class="file-filled">
                         <svg class="paperclip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M13.5 7.5L7.5 13.5C6.12 14.88 3.88 14.88 2.5 13.5C1.12 12.12 1.12 9.88 2.5 8.5L9.5 1.5C10.33 0.67 11.67 0.67 12.5 1.5C13.33 2.33 13.33 3.67 12.5 4.5L5.5 11.5C5.08 11.92 4.42 11.92 4 11.5C3.58 11.08 3.58 10.42 4 10L10 4"
-                                stroke="#002855" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="#002855" stroke-width="1.2" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                         <a class="file-name" href="javascript:void(0)" [attr.title]="f.name">{{ f.name }}</a>
                         <span class="file-size">({{ f.sizeMb }})</span>
                     </div>
                     } @else {
                     <div class="upload-default">
-                        <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="23" height="21" viewBox="0 0 23 21" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path d="M7.5 14.5L11.5 10.5L15.5 14.5" stroke="#002855" stroke-width="1.4"
                                 stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round" />
+                            <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4"
+                                stroke-linecap="round" />
                             <path
                                 d="M19.5 16.5C21.16 15.47 22 13.5 22 11.5C22 8.19 19.31 5.5 16 5.5C15.72 5.5 15.46 5.52 15.2 5.56C14.43 2.68 11.8 0.5 8.5 0.5C4.36 0.5 1 3.86 1 8C1 10.07 1.86 11.93 3.25 13.27"
-                                stroke="#002855" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="#002855" stroke-width="1.4" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                         <label class="choose-file-label" [attr.for]="'utilityFileInput'">
                             <span class="choose-file-link">Choose file</span> or drag here
@@ -207,12 +214,12 @@
             </div>
             }
 
-            <!-- ── Disclaimer ──────────────────────────────────────────────────── -->
+            <!-- Disclaimer -->
             <p class="disclaimer">
                 <em>Document must be clear, legible and genuine. Upload uprightly</em>
             </p>
 
-            <!-- ── Accept Terms & Conditions ─────────────────────────────────── -->
+            <!-- Accept Terms & Conditions -->
             <div class="terms-row">
                 <button class="terms-checkbox" type="button" [attr.aria-checked]="termsAccepted()" role="checkbox"
                     (click)="onTermsCheckboxClick()" aria-label="Accept Terms and Conditions">
@@ -233,13 +240,233 @@
                 </button>
             </div>
 
-            <!-- ── Submit ──────────────────────────────────────────────────────── -->
+            <!-- Submit / Update button -->
             <div class="submit-row">
+                @if (showUtilityUpload()) {
+                <button class="btn-submit" type="button" [disabled]="!canUpdate()" (click)="onUpdate()">
+                    Update
+                </button>
+                } @else {
                 <button class="btn-submit" type="button" [disabled]="!canSubmit()" (click)="onSubmit()">
                     Submit
                 </button>
+                }
             </div>
+
+            <!-- Outstanding Information section -->
+            @if (showOutstandingInfo()) {
+            <div class="outstanding-section">
+                <h2 class="outstanding-title">Outstanding Information</h2>
+
+                <!-- Occupation dropdown -->
+                <div class="field-group">
+                    <label class="field-label required" for="occupationBtn">Occupation</label>
+                    <div class="dropdown-wrapper" [class.open]="occupationOpen()">
+                        <button id="occupationBtn" class="field-input dropdown-trigger" type="button"
+                            (click)="toggleOccupationOpen()"
+                            [attr.aria-expanded]="occupationOpen()" aria-haspopup="listbox">
+                            <span [class.placeholder]="!occupation()">
+                                @if (occupation()) { {{ occupation() }} } @else { Select occupation }
+                            </span>
+                            <svg width="15" height="12" viewBox="0 0 15 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.8819 10.9268C6.9507 11.0267 7.04277 11.1084 7.15016 11.1648C7.25756 11.2213 7.37707 11.2508 7.4984 11.2508C7.61972 11.2508 7.73923 11.2213 7.84663 11.1648C7.95403 11.1084 8.04609 11.0267 8.1149 10.9268L14.8649 1.17675C14.943 1.06429 14.9888 0.932574 14.9974 0.795905C15.0059 0.659235 14.9768 0.522842 14.9133 0.401546C14.8497 0.280249 14.7541 0.178686 14.6369 0.107894C14.5197 0.037101 14.3853 -0.000214758 14.2484 9.2974e-07H0.748396C0.611779 0.000565237 0.4779 0.0383609 0.361157 0.109323C0.244414 0.180285 0.149223 0.281729 0.0858227 0.402746C0.0224221 0.523762 -0.00678987 0.659772 0.0013281 0.796149C0.00944607 0.932526 0.0545869 1.06411 0.131896 1.17675L6.8819 10.9268Z"
+                                    fill="black" />
+                            </svg>
+                        </button>
+                        @if (occupationOpen()) {
+                        <ul class="dropdown-list" role="listbox">
+                            @for (opt of occupationOptions; track opt) {
+                            <li class="dropdown-item" role="option" [attr.aria-selected]="occupation() === opt"
+                                (click)="selectOccupation(opt)" (keydown.enter)="selectOccupation(opt)"
+                                tabindex="0">{{ opt }}</li>
+                            }
+                        </ul>
+                        }
+                    </div>
+                </div>
+
+                <!-- Nature of Business dropdown -->
+                <div class="field-group">
+                    <label class="field-label required" for="natureBtn">Nature of Business</label>
+                    <div class="dropdown-wrapper" [class.open]="natureOfBusinessOpen()">
+                        <button id="natureBtn" class="field-input dropdown-trigger" type="button"
+                            (click)="toggleNatureOfBusinessOpen()"
+                            [attr.aria-expanded]="natureOfBusinessOpen()" aria-haspopup="listbox">
+                            <span [class.placeholder]="!natureOfBusiness()">
+                                @if (natureOfBusiness()) { {{ natureOfBusiness() }} } @else { Select nature of business }
+                            </span>
+                            <svg width="15" height="12" viewBox="0 0 15 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.8819 10.9268C6.9507 11.0267 7.04277 11.1084 7.15016 11.1648C7.25756 11.2213 7.37707 11.2508 7.4984 11.2508C7.61972 11.2508 7.73923 11.2213 7.84663 11.1648C7.95403 11.1084 8.04609 11.0267 8.1149 10.9268L14.8649 1.17675C14.943 1.06429 14.9888 0.932574 14.9974 0.795905C15.0059 0.659235 14.9768 0.522842 14.9133 0.401546C14.8497 0.280249 14.7541 0.178686 14.6369 0.107894C14.5197 0.037101 14.3853 -0.000214758 14.2484 9.2974e-07H0.748396C0.611779 0.000565237 0.4779 0.0383609 0.361157 0.109323C0.244414 0.180285 0.149223 0.281729 0.0858227 0.402746C0.0224221 0.523762 -0.00678987 0.659772 0.0013281 0.796149C0.00944607 0.932526 0.0545869 1.06411 0.131896 1.17675L6.8819 10.9268Z"
+                                    fill="black" />
+                            </svg>
+                        </button>
+                        @if (natureOfBusinessOpen()) {
+                        <ul class="dropdown-list" role="listbox">
+                            @for (opt of natureOfBusinessOptions; track opt) {
+                            <li class="dropdown-item" role="option"
+                                [attr.aria-selected]="natureOfBusiness() === opt"
+                                (click)="selectNatureOfBusiness(opt)"
+                                (keydown.enter)="selectNatureOfBusiness(opt)" tabindex="0">{{ opt }}</li>
+                            }
+                        </ul>
+                        }
+                    </div>
+                </div>
+
+                <!-- Employer Name -->
+                <div class="field-group">
+                    <label class="field-label" for="employerName">Employer Name</label>
+                    <input id="employerName" class="field-input" type="text" placeholder="Enter employer name"
+                        [value]="employerName()" (input)="employerName.set($any($event.target).value)"
+                        autocomplete="off" />
+                </div>
+
+                <!-- Employer Address -->
+                <div class="field-group">
+                    <label class="field-label" for="employerAddress">Employer Address</label>
+                    <input id="employerAddress" class="field-input" type="text"
+                        placeholder="Enter employer address" [value]="employerAddress()"
+                        (input)="employerAddress.set($any($event.target).value)" autocomplete="off" />
+                </div>
+
+                <!-- Annual Turn-Over dropdown -->
+                <div class="field-group">
+                    <label class="field-label" for="turnoverBtn">Annual Turn-Over</label>
+                    <div class="dropdown-wrapper" [class.open]="annualTurnoverOpen()">
+                        <button id="turnoverBtn" class="field-input dropdown-trigger" type="button"
+                            (click)="toggleAnnualTurnoverOpen()"
+                            [attr.aria-expanded]="annualTurnoverOpen()" aria-haspopup="listbox">
+                            <span [class.placeholder]="!annualTurnover()">
+                                @if (annualTurnover()) { {{ annualTurnover() }} } @else { Select annual turn-over }
+                            </span>
+                            <svg width="15" height="12" viewBox="0 0 15 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.8819 10.9268C6.9507 11.0267 7.04277 11.1084 7.15016 11.1648C7.25756 11.2213 7.37707 11.2508 7.4984 11.2508C7.61972 11.2508 7.73923 11.2213 7.84663 11.1648C7.95403 11.1084 8.04609 11.0267 8.1149 10.9268L14.8649 1.17675C14.943 1.06429 14.9888 0.932574 14.9974 0.795905C15.0059 0.659235 14.9768 0.522842 14.9133 0.401546C14.8497 0.280249 14.7541 0.178686 14.6369 0.107894C14.5197 0.037101 14.3853 -0.000214758 14.2484 9.2974e-07H0.748396C0.611779 0.000565237 0.4779 0.0383609 0.361157 0.109323C0.244414 0.180285 0.149223 0.281729 0.0858227 0.402746C0.0224221 0.523762 -0.00678987 0.659772 0.0013281 0.796149C0.00944607 0.932526 0.0545869 1.06411 0.131896 1.17675L6.8819 10.9268Z"
+                                    fill="black" />
+                            </svg>
+                        </button>
+                        @if (annualTurnoverOpen()) {
+                        <ul class="dropdown-list" role="listbox">
+                            @for (opt of annualTurnoverOptions; track opt) {
+                            <li class="dropdown-item" role="option"
+                                [attr.aria-selected]="annualTurnover() === opt"
+                                (click)="selectAnnualTurnover(opt)"
+                                (keydown.enter)="selectAnnualTurnover(opt)" tabindex="0">{{ opt }}</li>
+                            }
+                        </ul>
+                        }
+                    </div>
+                </div>
+
+                <!-- Final Submit -->
+                <div class="submit-row">
+                    <button class="btn-submit" type="button" [disabled]="!canFinalSubmit()"
+                        (click)="onFinalSubmit()">
+                        Submit
+                    </button>
+                </div>
+            </div>
+            }
 
         </div>
     </main>
+
+    <!-- MODAL: Additional document required -->
+    @if (showAdditionalDocModal()) {
+    <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="additionalDocTitle">
+        <div class="modal-card">
+            <div class="modal-icon-circle">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="14" cy="14" r="13" stroke="#002855" stroke-width="2" />
+                    <text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700"
+                        fill="#002855">i</text>
+                </svg>
+            </div>
+            <p class="modal-label">Document Upload</p>
+            <h2 class="modal-title" id="additionalDocTitle">Additional document required</h2>
+            <p class="modal-body">A utility bill is required to complete your Identity Document Update. Would you like to upload one now or skip for now?</p>
+            <div class="modal-actions">
+                <button class="btn-modal-outline" type="button" (click)="onSkipForNow()">Skip for now</button>
+                <button class="btn-modal-filled" type="button" (click)="onUploadNow()">Upload now</button>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- MODAL: Please proceed to update information -->
+    @if (showCompleteNowModal()) {
+    <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="completeNowTitle">
+        <div class="modal-card">
+            <div class="modal-icon-circle">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="14" cy="14" r="13" stroke="#002855" stroke-width="2" />
+                    <text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700"
+                        fill="#002855">i</text>
+                </svg>
+            </div>
+            <p class="modal-label">Document Upload</p>
+            <h2 class="modal-title" id="completeNowTitle">Please proceed to update information on your account</h2>
+            <p class="modal-body">To complete your identity document update, please provide the following outstanding information:</p>
+            <ul class="outstanding-list">
+                <li class="compulsory">Occupation <span class="asterisk">*</span></li>
+                <li class="compulsory">Nature of Business <span class="asterisk">*</span></li>
+                <li>Employer Name</li>
+                <li>Employer Address</li>
+                <li>Annual Turn-Over</li>
+            </ul>
+            <div class="modal-actions-single">
+                <button class="btn-modal-filled full-width" type="button" (click)="onCompleteNow()">Complete now</button>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- MODAL: Submission successful -->
+    @if (showSuccessModal()) {
+    <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+        <div class="modal-card">
+            <div class="modal-icon-circle modal-icon-circle--success">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="14" cy="14" r="13" stroke="#34B233" stroke-width="2" />
+                    <path d="M8 14L12 18L20 10" stroke="#34B233" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+            <p class="modal-label">Document Upload</p>
+            <h2 class="modal-title" id="successTitle">Submission successful</h2>
+            <p class="modal-body">Your identity document update request has been submitted successfully and is being reviewed.</p>
+            <div class="modal-actions">
+                <button class="btn-modal-outline" type="button" (click)="onSuccessClose()">Close</button>
+                <button class="btn-modal-filled" type="button" (click)="onSuccessHome()">Home</button>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- MODAL: Update request failed -->
+    @if (showFailedModal()) {
+    <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="failedTitle">
+        <div class="modal-card">
+            <div class="modal-icon-circle modal-icon-circle--failed">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="14" cy="14" r="13" stroke="#D20B0B" stroke-width="2" />
+                    <path d="M9 9L19 19M19 9L9 19" stroke="#D20B0B" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </div>
+            <p class="modal-label">Document Upload</p>
+            <h2 class="modal-title" id="failedTitle">Update request failed</h2>
+            <p class="modal-body">Your identity document update request could not be processed. Please try again later or contact support.</p>
+            <div class="modal-actions">
+                <button class="btn-modal-outline" type="button" (click)="onFailedClose()">Close</button>
+                <button class="btn-modal-filled" type="button" (click)="onFailedHome()">Home</button>
+            </div>
+        </div>
+    </div>
+    }
+
 </div>
