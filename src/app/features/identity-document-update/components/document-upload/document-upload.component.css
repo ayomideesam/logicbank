@@ -480,6 +480,11 @@
     line-height: 1.3;
 }
 
+.modal-title--lg {
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .modal-body {
     font-size: 14px;
     color: #555;
@@ -540,9 +545,9 @@
 
 /* ── Outstanding Information section ─────────────────────────────────────── */
 .outstanding-section {
-    margin-top: 36px;
-    padding-top: 28px;
-    border-top: 1.5px solid #e0e4ea;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
     width: 100%;
 }
 
@@ -561,6 +566,17 @@
     flex-direction: column;
     gap: 6px;
     text-align: left;
+}
+
+.outstanding-list--centered {
+    text-align: center;
+    gap: 12px;
+    margin: 8px 0 16px;
+}
+
+.outstanding-list--centered li {
+    font-size: 15px;
+    color: #444;
 }
 
 .outstanding-list li {
