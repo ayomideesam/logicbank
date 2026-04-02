@@ -1,0 +1,102 @@
+/* ============================================================
+   OTP Failure Modal
+   ============================================================ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  width: 450px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 40px 25px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+}
+
+.modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-text-group {
+  width: 288px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-title {
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.modal-subtitle {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0;
+  text-align: center;
+  color: #6b7280;
+  margin: 0;
+}
+
+.modal-actions {
+  width: 400px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btn-close,
+.btn-cancel {
+  width: 192px;
+  height: 40px;
+  border-radius: 4px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  text-align: center;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: opacity 0.2s ease;
+}
+
+.btn-close {
+  background: #ffffff;
+  border: 1px solid #002855;
+  color: #002855;
+}
+
+.btn-close:hover {
+  background: #f8fafc;
+}
+
+.btn-cancel {
+  background: #002855;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-cancel:hover {
+  opacity: 0.9;
+}

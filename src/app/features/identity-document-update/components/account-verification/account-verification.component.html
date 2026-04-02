@@ -1,0 +1,110 @@
+<div class="verify-page">
+  <app-portal-header [searchActive]="false" />
+
+  <div class="portal-banner" role="banner">
+    <span class="portal-banner-title">Account Management Portal</span>
+  </div>
+
+  <main class="verify-content">
+
+    <!-- Page title row -->
+    <div class="page-title-row">
+      <button class="back-btn" type="button" (click)="goBack()" aria-label="Go back">
+        <svg width="25" height="17" viewBox="0 0 25 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M24.984 6.9855V9.9855H5.742L10.6065 14.85L8.484 16.971L0 8.4855L8.484 0L10.6065 2.121L5.742 6.9855H24.984Z" fill="black"/>
+        </svg>
+      </button>
+      <span class="page-title">Identity Document Update</span>
+    </div>
+
+    <!-- Yellow underline -->
+    <div class="title-underline" aria-hidden="true"></div>
+
+    <!-- Account number -->
+    <div class="field-group">
+      <label class="field-label" for="accountNumber">Account number</label>
+      <input
+        id="accountNumber"
+        type="text"
+        class="field-input"
+        [class.input-verified]="idService.accountVerified()"
+        [class.input-error]="idService.accountError()"
+        placeholder="Enter your 10-digits account number"
+        [value]="accountNumber()"
+        (input)="onAccountNumberInput($any($event.target).value)"
+        maxlength="10"
+        inputmode="numeric"
+        autocomplete="off"
+        aria-describedby="accountNumberHint"
+      />
+      @if (idService.accountLoading()) {
+        <div class="account-loader" role="status" aria-label="Validating account number">
+          <span class="loader-spinner"></span>
+          <span class="loader-text">Validating account number…</span>
+        </div>
+      }
+    </div>
+
+    <!-- OTP section — only shown after account verified -->
+    @if (idService.accountVerified()) {
+      <div class="field-group">
+        <label class="field-label">Phone number verification</label>
+
+        <!-- OTP boxes + resend -->
+        <div class="otp-row">
+          <div class="otp-boxes" role="group" aria-label="OTP input">
+            @for (digit of otpDigits(); track $index) {
+              <input
+                #otpInput
+                type="text"
+                inputmode="numeric"
+                maxlength="1"
+                class="otp-box"
+                [class.otp-box-error]="idService.otpError()"
+                [value]="digit"
+                (input)="onOtpInput($index, $event)"
+                (keydown)="onOtpKeydown($index, $event)"
+                [attr.aria-label]="'OTP digit ' + ($index + 1)"
+              />
+            }
+          </div>
+
+          <div class="resend-group">
+            <span class="resend-label">Didn't receive OTP?</span>
+            @if (canResend()) {
+              <button class="resend-btn resend-active" type="button" (click)="onResend()">Resend</button>
+            } @else {
+              <span class="resend-countdown">Resend in {{ resendCountdown() | number:'1.2-2' }} secs</span>
+            }
+          </div>
+        </div>
+
+        <!-- Inline OTP error -->
+        @if (idService.otpError()) {
+          <div class="otp-error-row" role="alert">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 0C15.523 0 20 4.477 20 10C20 15.523 15.523 20 10 20C4.477 20 0 15.523 0 10C0 4.477 4.477 0 10 0ZM9.99 8H9C8.74512 8.00028 8.49997 8.09788 8.31463 8.27285C8.1293 8.44782 8.01777 8.68695 8.00283 8.94139C7.98789 9.19584 8.07067 9.44638 8.23426 9.64183C8.39785 9.83729 8.6299 9.9629 8.883 9.993L9 10V14.99C9 15.51 9.394 15.94 9.9 15.994L10.01 16H10.5C10.7103 16 10.9153 15.9337 11.0857 15.8105C11.2562 15.6873 11.3835 15.5135 11.4495 15.3139C11.5155 15.1142 11.5169 14.8988 11.4534 14.6982C11.3899 14.4977 11.2649 14.3223 11.096 14.197L11 14.134V9.01C11 8.49 10.606 8.06 10.1 8.006L9.99 8ZM10 5C9.73478 5 9.48043 5.10536 9.29289 5.29289C9.10536 5.48043 9 5.73478 9 6C9 6.26522 9.10536 6.51957 9.29289 6.70711C9.48043 6.89464 9.73478 7 10 7C10.2652 7 10.5196 6.89464 10.7071 6.70711C10.8946 6.51957 11 6.26522 11 6C11 5.73478 10.8946 5.48043 10.7071 5.29289C10.5196 5.10536 10.2652 5 10 5Z" fill="#D20B0B"/>
+            </svg>
+            <span class="otp-error-text">The OTP Code inputed is wrong or invalid.</span>
+            <button class="cancel-request-link" type="button" (click)="onCancelRequest()">Cancel Request</button>
+          </div>
+        }
+
+        <!-- OTP hint text (always shown while in OTP section) -->
+        <p class="otp-hint">
+          Kindly input the 6-digit OTP sent to your registered phone number +23480******78 and email
+          address ade****yu&#64;gmail.com
+        </p>
+      </div>
+    }
+
+  </main>
+
+  <!-- OTP Failure Modal — @defer, only loaded after first failure -->
+  @defer (when showOtpModal()) {
+    <app-otp-failure-modal
+      (close)="onModalClose()"
+      (cancelRequest)="onCancelRequest()" />
+  }
+
+</div>
