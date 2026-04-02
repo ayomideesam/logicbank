@@ -1,6 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import { PortalHeaderComponent } from '../../../../layout/components/portal-header/portal-header.component';
 import {
   IdentityDocumentService,
   IdDocumentType
@@ -12,7 +11,7 @@ const ACCEPTED_TYPES = ['application/pdf', 'image/jpeg'];
 @Component({
   selector: 'app-document-upload',
   standalone: true,
-  imports: [PortalHeaderComponent],
+  imports: [],
   templateUrl: './document-upload.component.html',
   styleUrl: './document-upload.component.css'
 })

@@ -4,14 +4,13 @@ import {
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DecimalPipe as NgDecimalPipe } from '@angular/common';
-import { PortalHeaderComponent } from '../../../../layout/components/portal-header/portal-header.component';
 import { IdentityDocumentService } from '../../services/identity-document.service';
 import { OtpFailureModalComponent } from '../otp-failure-modal/otp-failure-modal.component';
 
 @Component({
   selector: 'app-account-verification',
   standalone: true,
-  imports: [FormsModule, NgDecimalPipe, PortalHeaderComponent, OtpFailureModalComponent],
+  imports: [FormsModule, NgDecimalPipe, OtpFailureModalComponent],
   templateUrl: './account-verification.component.html',
   styleUrl: './account-verification.component.css'
 })
