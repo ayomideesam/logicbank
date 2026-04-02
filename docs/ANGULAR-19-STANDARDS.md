@@ -231,6 +231,138 @@ export class MyComponent {
 
 ---
 
+## ⏳ DEFER & LAZY LOADING Patterns
+
+> **Rule:** If a user cannot see it on first render, it should not be in the initial bundle.
+
+Angular 19 offers two layers of deferred loading:
+- **Route-level lazy loading** — entire feature bundles loaded on navigation
+- **`@defer`** — individual components/blocks deferred within a rendered view
+
+---
+
+### Route-Level Lazy Loading (already in use)
+```typescript
+// app.routes.ts — each feature is its own JS chunk
+export const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./features/landing/landing.routes')
+      .then(m => m.LANDING_ROUTES)
+  },
+  {
+    path: 'identity-document-update',
+    loadChildren: () => import('./features/identity-document-update/identity-document-update.routes')
+      .then(m => m.IDENTITY_DOCUMENT_UPDATE_ROUTES)
+  }
+];
+```
+**Rule:** Every feature folder (`features/*/`) must be lazy-loaded. Never import feature components directly into `app.routes.ts`.
+
+---
+
+### `@defer` — Component-Level Deferral
+
+Use `@defer` for **heavy components that are not needed on first paint**: modals, drawers, document viewers, multi-step forms, data tables.
+
+#### Anatomy
+```html
+@defer (on <trigger>) {
+  <!-- Component loaded only when trigger fires -->
+  <app-heavy-modal />
+} @placeholder {
+  <!-- Shown immediately while deferred content has not started loading -->
+  <div class="skeleton"></div>
+} @loading (minimum 300ms) {
+  <!-- Shown while the chunk is downloading -->
+  <app-spinner />
+} @error {
+  <!-- Shown if the chunk fails to load -->
+  <p>Failed to load. <button (click)="retry()">Retry</button></p>
+}
+```
+
+#### Triggers reference
+
+| Trigger | When it fires | Best for |
+|---|---|---|
+| `on idle` | Browser is idle (default) | Non-critical widgets, footer sections |
+| `on viewport` | Element enters the viewport | Below-the-fold content, cards |
+| `on interaction` | User clicks/focuses the element | Dropdowns, tooltips, accordions |
+| `on hover` | User hovers the element | Tooltip previews |
+| `on timer(Xms)` | After X milliseconds | Chat widgets, cookie banners |
+| `on immediate` | As soon as possible (next microtask) | High-priority but non-blocking |
+| `when <expr>` | When a signal/expression turns truthy | Modals, drawers (controlled by signal) |
+
+---
+
+#### Modal / Drawer pattern (most common in this project)
+```typescript
+// parent.component.ts
+export class ParentComponent {
+  isModalOpen = signal(false);
+
+  openModal(): void {
+    this.isModalOpen.set(true);
+  }
+}
+```
+```html
+<!-- parent.component.html -->
+<button (click)="openModal()">Open</button>
+
+@defer (when isModalOpen()) {
+  <app-id-upload-modal (close)="isModalOpen.set(false)" />
+} @loading {
+  <!-- optional spinner while chunk downloads on first open -->
+  <app-spinner />
+}
+```
+**Why `when` over `on interaction`?** — `when` gives you explicit signal control; the modal renders only after `isModalOpen()` is `true`. The chunk is downloaded on the first open and cached thereafter.
+
+#### Viewport pattern (below-fold sections)
+```html
+<!-- Heavy section only fetched when user scrolls near it -->
+@defer (on viewport; prefetch on idle) {
+  <app-requirements-table />
+} @placeholder {
+  <div class="placeholder-row" style="height: 200px"></div>
+}
+```
+Note the `prefetch on idle` — Angular starts downloading the chunk when the browser is idle, so it is ready before the viewport trigger fires.
+
+#### Pre-fetching strategy
+```html
+<!-- Download chunk eagerly on idle, but render only when user interacts -->
+@defer (on interaction; prefetch on idle) {
+  <app-help-panel />
+} @placeholder {
+  <button>Need help?</button>
+}
+```
+
+---
+
+### Decision tree: which deferral to use?
+
+```
+Is it a whole feature (route)?  →  Route lazy loading
+Is it modal/drawer/dialog?      →  @defer (when signalIsOpen())
+Is it below the fold?           →  @defer (on viewport; prefetch on idle)
+Is it triggered by user action? →  @defer (on interaction) or (on hover)
+Is it non-critical on-screen?   →  @defer (on idle)
+```
+
+---
+
+### What NOT to defer
+- The primary page content (header, first visible card grid)
+- Global navigation (`app-portal-header`)
+- Anything needed for the Largest Contentful Paint (LCP)
+- Components smaller than ~5 KB — the network overhead is not worth it
+
+---
+
 ## 🔄 LIFECYCLE & CLEANUP
 
 ### Pattern: DestroyRef (Angular 19 preferred)
@@ -499,6 +631,8 @@ effect(() => {
 | `.subscribe({ })` | `resource()` or effect | Services | Automatic cleanup |
 | Constructor DI | `inject()` | All | Tree-shakeable |
 | `ngModel` | Signals | Forms | Better performance |
+| Always-rendered modal | `@defer (when open())` | Modals/drawers | Only loaded when opened |
+| Eager feature imports | `loadChildren()` lazy routes | `app.routes.ts` | Bundle splitting |
 
 ---
 
@@ -519,6 +653,11 @@ When reviewing code, verify:
 - [ ] `DomSanitizer.bypassSecurityTrustHtml` only in services, never components
 - [ ] `SafeHtml` type used in models — never cast to `string`
 - [ ] Components are thin — data/business logic lives in services
+- [ ] Every `features/*/` route is lazy-loaded via `loadChildren`
+- [ ] Modals/drawers use `@defer (when signalIsOpen())` — not always rendered
+- [ ] Below-fold sections use `@defer (on viewport; prefetch on idle)`
+- [ ] `@placeholder` provided for every `@defer` block (prevents layout shift)
+- [ ] `@loading` + `@error` blocks defined for async chunk boundaries
 
 ---
 
@@ -535,7 +674,7 @@ When reviewing code, verify:
 
 | Date | Angular Version | Changes |
 |------|---|---|
-| 2026-04-02 | 19.2.20 | Adopted for LogicBank project; fixed version metadata; removed SubscriptionManagementDirective; added SafeHtml/DomSanitizer service pattern; added thin-component rule; updated form state to Reactive Forms; updated lifecycle cleanup to DestroyRef |
+| 2026-04-02 | 19.2.20 | Adopted for LogicBank project; fixed version metadata; removed SubscriptionManagementDirective; added SafeHtml/DomSanitizer service pattern; added thin-component rule; updated form state to Reactive Forms; updated lifecycle cleanup to DestroyRef; added @defer + lazy loading section; enabled HMR in angular.json |
 | 2026-03-28 | 19.2.20+ | Initial standards document created (CAP-Frontend) |
 
 ---
