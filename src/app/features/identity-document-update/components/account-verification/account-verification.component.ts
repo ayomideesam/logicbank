@@ -157,8 +157,10 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
   }
 
   // ── Navigation ────────────────────────────────────────────────────────────
-  goBack(): void {    // Reset all verification state so returning here forces fresh entry
-    this.idService.resetAccountVerification();    this.router.navigate(['/identity-document-update']);
+  goBack(): void {
+    // Full reset — navigating back to consent clears all stored form data
+    this.idService.resetAll();
+    this.router.navigate(['/identity-document-update']);
   }
 
   ngOnDestroy(): void {
