@@ -113,6 +113,7 @@
                         </div>
                         }
                         <input id="frontFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
+                            (click)="$event.stopPropagation()"
                             (change)="onFrontFileSelect($event)" aria-label="Upload identity document front" />
                     </div>
                     @if (frontFileError()) {
@@ -158,6 +159,7 @@
                         </div>
                         }
                         <input id="backFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
+                            (click)="$event.stopPropagation()"
                             (change)="onBackFileSelect($event)" aria-label="Upload identity document back" />
                     </div>
                     @if (backFileError()) {
@@ -203,6 +205,7 @@
                     </div>
                     }
                     <input id="utilityFileInput" type="file" accept=".pdf,.jpg,.jpeg" class="file-input-hidden"
+                        (click)="$event.stopPropagation()"
                         (change)="onUtilityFileSelect($event)" aria-label="Upload utility bill" />
                 </div>
                 @if (utilityFileError()) {
