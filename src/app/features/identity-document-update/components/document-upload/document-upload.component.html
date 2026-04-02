@@ -76,7 +76,7 @@
             <div class="id-upload-row">
                 <!-- Front -->
                 <div class="upload-zone-wrapper">
-                    <span class="upload-zone-label">Upload your Identity Document (Front)</span>
+                    <span class="upload-zone-label">Upload your {{ docType() }} (Front)</span>
                     <div class="upload-zone" [class.has-file]="form().frontFile" [class.drag-over]="frontDragOver()"
                         (dragover)="onDragOver('front', $event)" (dragleave)="onDragLeave('front')"
                         (drop)="onDrop('front', $event)" role="region" aria-label="Identity document front upload">
@@ -121,7 +121,7 @@
 
                 <!-- Back -->
                 <div class="upload-zone-wrapper">
-                    <span class="upload-zone-label">Upload your Identity Document (Back)</span>
+                    <span class="upload-zone-label">Upload your {{ docType() }} (Back)</span>
                     <div class="upload-zone" [class.has-file]="form().backFile" [class.drag-over]="backDragOver()"
                         (dragover)="onDragOver('back', $event)" (dragleave)="onDragLeave('back')"
                         (drop)="onDrop('back', $event)" role="region" aria-label="Identity document back upload">
