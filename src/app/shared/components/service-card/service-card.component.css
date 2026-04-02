@@ -6,12 +6,12 @@
   flex-direction: column;
   width: 400px;
   min-height: 315px;
-  background: #ffffff;
+  background: var(--card-bg, #E5F3FDB2);
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 24px;
   gap: 12px;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .service-card:hover {
