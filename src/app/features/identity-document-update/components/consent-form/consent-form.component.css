@@ -1,0 +1,128 @@
+/* ============================================================
+   Consent Form
+   ============================================================ */
+.consent-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.portal-banner {
+  width: 100%;
+  background-color: #002855;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 100px;
+}
+
+.portal-banner-title {
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.consent-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 40px 100px 64px;
+}
+
+.consent-container {
+  width: 1145px;
+  min-height: 635px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.consent-title {
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: var(--color-text-primary);
+  margin: 0 0 12px;
+}
+
+.consent-subtitle {
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: var(--color-text-primary);
+  margin: 0 0 16px;
+}
+
+.consent-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.consent-body p {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.consent-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Shared button base */
+.btn-reject,
+.btn-agree {
+  width: 192px;
+  height: 40px;
+  border-radius: 2.8px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  padding: 0 16.82px;
+}
+
+.btn-reject {
+  background: #ffffff;
+  border: 0.7px solid #162D4C;
+  color: #162D4C;
+}
+
+.btn-reject:hover {
+  background: #f8fafc;
+}
+
+.btn-agree {
+  background: #162D4C;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-agree:hover {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  .consent-container {
+    width: 100%;
+  }
+
+  .consent-content {
+    padding: 32px 40px 64px;
+  }
+}

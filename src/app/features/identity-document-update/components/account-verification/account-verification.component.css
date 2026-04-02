@@ -1,0 +1,282 @@
+/* ============================================================
+   Account Verification
+   ============================================================ */
+.verify-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.portal-banner {
+  width: 100%;
+  background-color: #002855;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 100px;
+}
+
+.portal-banner-title {
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.verify-content {
+  flex: 1;
+  padding: 40px 350px 64px;
+  max-width: 1512px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── Title row ─── */
+.page-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: var(--color-text-primary);
+}
+
+.title-underline {
+  width: 812px;
+  height: 5px;
+  background: #FCB62E;
+  border-radius: 2px;
+  margin-bottom: 32px;
+}
+
+/* ── Field groups ─── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.field-label {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: var(--color-text-primary);
+}
+
+.field-input {
+  width: 812px;
+  height: 60px;
+  border: 0.5px solid #9ca3af;
+  border-radius: 4px;
+  padding: 0 16px;
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 100%;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: border-color 0.15s ease;
+  background: #fff;
+}
+
+.field-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.field-input:focus {
+  border-color: #1855F5;
+}
+
+.input-verified {
+  border-color: #22C55E;
+}
+
+.input-error {
+  border-color: #D20B0B;
+}
+
+/* Account loader */
+.account-loader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.loader-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #002855;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader-text {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-muted);
+}
+
+/* ── OTP boxes ─── */
+.otp-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.otp-boxes {
+  display: flex;
+  gap: 10px;
+}
+
+.otp-box {
+  width: 60px;
+  height: 60px;
+  border: 0.5px solid #9ca3af;
+  border-radius: 4px;
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: border-color 0.15s ease;
+  background: #fff;
+}
+
+.otp-box:focus {
+  border-color: #1855F5;
+  border-width: 1.5px;
+}
+
+.otp-box-error {
+  border-color: #D20B0B;
+}
+
+/* Resend */
+.resend-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.resend-label {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 100%;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.resend-countdown {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 100%;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+}
+
+.resend-btn {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.resend-active {
+  color: #1855F5;
+}
+
+/* OTP inline error */
+.otp-error-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 477px;
+}
+
+.otp-error-text {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 100%;
+  color: #D20B0B;
+}
+
+.cancel-request-link {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 100%;
+  color: #D20B0B;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* OTP hint */
+.otp-hint {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 100%;
+  color: var(--color-text-primary);
+  max-width: 812px;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  .verify-content {
+    padding: 40px 40px 64px;
+  }
+
+  .field-input,
+  .title-underline {
+    width: 100%;
+  }
+
+  .otp-row {
+    flex-wrap: wrap;
+  }
+}

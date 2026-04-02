@@ -1,0 +1,22 @@
+<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="otp-failure-title">
+  <div class="modal-card">
+
+    <div class="modal-icon">
+      <svg width="46" height="40" viewBox="0 0 46 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M23 1L1 39H45L23 1Z" stroke="#F24822" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M23 31V32M23 15L23.008 25" stroke="#F24822" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="modal-text-group">
+      <h2 id="otp-failure-title" class="modal-title">OTP Validation Failed</h2>
+      <p class="modal-subtitle">Your phone number validation failed.</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-close" type="button" (click)="onClose()">Close</button>
+      <button class="btn-cancel" type="button" (click)="onCancelRequest()">Cancel request</button>
+    </div>
+
+  </div>
+</div>

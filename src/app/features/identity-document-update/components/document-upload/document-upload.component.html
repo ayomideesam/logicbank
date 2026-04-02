@@ -1,0 +1,302 @@
+<div class="upload-page">
+  <app-portal-header [searchActive]="false" />
+
+  <div class="portal-banner" role="banner">
+    <span class="portal-banner-title">Account Management Portal</span>
+  </div>
+
+  <main class="upload-content">
+    <div class="upload-container">
+
+      <!-- Back navigation -->
+      <button class="back-btn" type="button" (click)="goBack()" aria-label="Go back">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="#002855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Back</span>
+      </button>
+
+      <!-- Page title -->
+      <div class="page-title-block">
+        <h1 class="page-title">Identity Document Update</h1>
+        <div class="title-underline"></div>
+      </div>
+
+      <!-- ── Account Number (pre-filled, read-only) ───────────────────── -->
+      <div class="field-group">
+        <label class="field-label" for="accountNumber">Account Number</label>
+        <input
+          id="accountNumber"
+          class="field-input"
+          type="text"
+          [value]="accountNumber()"
+          readonly
+          aria-readonly="true"
+        />
+      </div>
+
+      <!-- ── NIN ───────────────────────────────────────────────────────── -->
+      <div class="field-group">
+        <label class="field-label" for="nin">NIN</label>
+        <input
+          id="nin"
+          class="field-input"
+          type="text"
+          placeholder="Enter your NIN"
+          [value]="nin()"
+          (input)="nin.set($any($event.target).value)"
+          autocomplete="off"
+          aria-required="true"
+        />
+      </div>
+
+      <!-- ── Identity Document Type (Custom Dropdown) ──────────────────── -->
+      <div class="field-group">
+        <label class="field-label" for="docTypeBtn">Identity Document Type</label>
+        <div class="dropdown-wrapper" [class.open]="dropdownOpen()">
+          <button
+            id="docTypeBtn"
+            class="field-input dropdown-trigger"
+            type="button"
+            (click)="toggleDropdown()"
+            [attr.aria-expanded]="dropdownOpen()"
+            aria-haspopup="listbox"
+          >
+            <span [class.placeholder]="!docType()">
+              @if (docType()) {
+                {{ docType() }}
+              } @else {
+                Select document type
+              }
+            </span>
+            <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="#002855" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          @if (dropdownOpen()) {
+            <ul class="dropdown-list" role="listbox" aria-label="Document type options">
+              @for (option of docTypeOptions; track option) {
+                <li
+                  class="dropdown-item"
+                  role="option"
+                  [attr.aria-selected]="docType() === option"
+                  (click)="selectDocType(option)"
+                  (keydown.enter)="selectDocType(option)"
+                  tabindex="0"
+                >
+                  {{ option }}
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+
+      <!-- ── Identity Document Number ──────────────────────────────────── -->
+      <div class="field-group">
+        <label class="field-label" for="docNumber">Identity Document Number</label>
+        <input
+          id="docNumber"
+          class="field-input"
+          type="text"
+          placeholder="Enter document number"
+          [value]="docNumber()"
+          (input)="docNumber.set($any($event.target).value)"
+          autocomplete="off"
+          aria-required="true"
+        />
+      </div>
+
+      <!-- ── File Upload Zones ──────────────────────────────────────────── -->
+      <div class="id-upload-row">
+        <!-- Front -->
+        <div class="upload-zone-wrapper">
+          <span class="upload-zone-label">Upload your Identity Document (Front)</span>
+          <div
+            class="upload-zone"
+            [class.has-file]="form().frontFile"
+            [class.drag-over]="frontDragOver()"
+            (dragover)="onDragOver('front', $event)"
+            (dragleave)="onDragLeave('front')"
+            (drop)="onDrop('front', $event)"
+            role="region"
+            aria-label="Identity document front upload"
+          >
+            @if (form().frontFile; as f) {
+              <div class="file-filled">
+                <svg class="paperclip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.5 7.5L7.5 13.5C6.12 14.88 3.88 14.88 2.5 13.5C1.12 12.12 1.12 9.88 2.5 8.5L9.5 1.5C10.33 0.67 11.67 0.67 12.5 1.5C13.33 2.33 13.33 3.67 12.5 4.5L5.5 11.5C5.08 11.92 4.42 11.92 4 11.5C3.58 11.08 3.58 10.42 4 10L10 4" stroke="#002855" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <a class="file-name" href="javascript:void(0)" [attr.title]="f.name">{{ f.name }}</a>
+                <span class="file-size">({{ f.sizeMb }})</span>
+              </div>
+            } @else {
+              <div class="upload-default">
+                <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.5 14.5L11.5 10.5L15.5 14.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M19.5 16.5C21.16 15.47 22 13.5 22 11.5C22 8.19 19.31 5.5 16 5.5C15.72 5.5 15.46 5.52 15.2 5.56C14.43 2.68 11.8 0.5 8.5 0.5C4.36 0.5 1 3.86 1 8C1 10.07 1.86 11.93 3.25 13.27" stroke="#002855" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <label class="choose-file-label" [attr.for]="'frontFileInput'">
+                  <span class="choose-file-link">Choose file</span> or drag here
+                </label>
+                <p class="upload-hint">Supported files: PDF and JPG, 10.00MB maximum size</p>
+              </div>
+            }
+            <input
+              id="frontFileInput"
+              type="file"
+              accept=".pdf,.jpg,.jpeg"
+              class="file-input-hidden"
+              (change)="onFrontFileSelect($event)"
+              aria-label="Upload identity document front"
+            />
+          </div>
+          @if (frontFileError()) {
+            <p class="upload-error" role="alert">{{ frontFileError() }}</p>
+          }
+        </div>
+
+        <!-- Back -->
+        <div class="upload-zone-wrapper">
+          <span class="upload-zone-label">Upload your Identity Document (Back)</span>
+          <div
+            class="upload-zone"
+            [class.has-file]="form().backFile"
+            [class.drag-over]="backDragOver()"
+            (dragover)="onDragOver('back', $event)"
+            (dragleave)="onDragLeave('back')"
+            (drop)="onDrop('back', $event)"
+            role="region"
+            aria-label="Identity document back upload"
+          >
+            @if (form().backFile; as f) {
+              <div class="file-filled">
+                <svg class="paperclip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.5 7.5L7.5 13.5C6.12 14.88 3.88 14.88 2.5 13.5C1.12 12.12 1.12 9.88 2.5 8.5L9.5 1.5C10.33 0.67 11.67 0.67 12.5 1.5C13.33 2.33 13.33 3.67 12.5 4.5L5.5 11.5C5.08 11.92 4.42 11.92 4 11.5C3.58 11.08 3.58 10.42 4 10L10 4" stroke="#002855" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <a class="file-name" href="javascript:void(0)" [attr.title]="f.name">{{ f.name }}</a>
+                <span class="file-size">({{ f.sizeMb }})</span>
+              </div>
+            } @else {
+              <div class="upload-default">
+                <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.5 14.5L11.5 10.5L15.5 14.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M19.5 16.5C21.16 15.47 22 13.5 22 11.5C22 8.19 19.31 5.5 16 5.5C15.72 5.5 15.46 5.52 15.2 5.56C14.43 2.68 11.8 0.5 8.5 0.5C4.36 0.5 1 3.86 1 8C1 10.07 1.86 11.93 3.25 13.27" stroke="#002855" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <label class="choose-file-label" [attr.for]="'backFileInput'">
+                  <span class="choose-file-link">Choose file</span> or drag here
+                </label>
+                <p class="upload-hint">Supported files: PDF and JPG, 10.00MB maximum size</p>
+              </div>
+            }
+            <input
+              id="backFileInput"
+              type="file"
+              accept=".pdf,.jpg,.jpeg"
+              class="file-input-hidden"
+              (change)="onBackFileSelect($event)"
+              aria-label="Upload identity document back"
+            />
+          </div>
+          @if (backFileError()) {
+            <p class="upload-error" role="alert">{{ backFileError() }}</p>
+          }
+        </div>
+      </div>
+
+      <!-- ── Utility Bill ────────────────────────────────────────────────── -->
+      <div class="upload-zone-wrapper full-width">
+        <span class="upload-zone-label">Upload your Utility Bill</span>
+        <div
+          class="upload-zone"
+          [class.has-file]="form().utilityBillFile"
+          [class.drag-over]="utilityDragOver()"
+          (dragover)="onDragOver('utility', $event)"
+          (dragleave)="onDragLeave('utility')"
+          (drop)="onDrop('utility', $event)"
+          role="region"
+          aria-label="Utility bill upload"
+        >
+          @if (form().utilityBillFile; as f) {
+            <div class="file-filled">
+              <svg class="paperclip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.5 7.5L7.5 13.5C6.12 14.88 3.88 14.88 2.5 13.5C1.12 12.12 1.12 9.88 2.5 8.5L9.5 1.5C10.33 0.67 11.67 0.67 12.5 1.5C13.33 2.33 13.33 3.67 12.5 4.5L5.5 11.5C5.08 11.92 4.42 11.92 4 11.5C3.58 11.08 3.58 10.42 4 10L10 4" stroke="#002855" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <a class="file-name" href="javascript:void(0)" [attr.title]="f.name">{{ f.name }}</a>
+              <span class="file-size">({{ f.sizeMb }})</span>
+            </div>
+          } @else {
+            <div class="upload-default">
+              <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 14.5L11.5 10.5L15.5 14.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11.5 10.5V19.5" stroke="#002855" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M19.5 16.5C21.16 15.47 22 13.5 22 11.5C22 8.19 19.31 5.5 16 5.5C15.72 5.5 15.46 5.52 15.2 5.56C14.43 2.68 11.8 0.5 8.5 0.5C4.36 0.5 1 3.86 1 8C1 10.07 1.86 11.93 3.25 13.27" stroke="#002855" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <label class="choose-file-label" [attr.for]="'utilityFileInput'">
+                <span class="choose-file-link">Choose file</span> or drag here
+              </label>
+              <p class="upload-hint">Supported files: PDF and JPG, 10.00MB maximum size</p>
+            </div>
+          }
+          <input
+            id="utilityFileInput"
+            type="file"
+            accept=".pdf,.jpg,.jpeg"
+            class="file-input-hidden"
+            (change)="onUtilityFileSelect($event)"
+            aria-label="Upload utility bill"
+          />
+        </div>
+        @if (utilityFileError()) {
+          <p class="upload-error" role="alert">{{ utilityFileError() }}</p>
+        }
+      </div>
+
+      <!-- ── Disclaimer ──────────────────────────────────────────────────── -->
+      <p class="disclaimer">
+        <em>Kindly note that ID documents must not be expired.</em>
+      </p>
+
+      <!-- ── Accept Terms & Conditions ─────────────────────────────────── -->
+      <div class="terms-row">
+        <button
+          class="terms-checkbox"
+          type="button"
+          [attr.aria-checked]="termsAccepted()"
+          role="checkbox"
+          (click)="onTermsCheckboxClick()"
+          aria-label="Accept Terms and Conditions"
+        >
+          @if (termsAccepted()) {
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="19" height="19" rx="3.5" fill="#002855" stroke="#1855F5"/>
+              <path d="M5 10L8.5 13.5L15 7" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          } @else {
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="19" height="19" rx="3.5" fill="white" stroke="#1855F5"/>
+            </svg>
+          }
+        </button>
+        <button class="terms-link" type="button" (click)="onTermsLinkClick()">
+          Accept Terms &amp; Conditions
+        </button>
+      </div>
+
+      <!-- ── Submit ──────────────────────────────────────────────────────── -->
+      <div class="submit-row">
+        <button
+          class="btn-submit"
+          type="button"
+          [disabled]="!canSubmit()"
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
