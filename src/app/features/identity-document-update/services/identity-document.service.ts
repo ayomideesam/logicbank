@@ -109,6 +109,16 @@ export class IdentityDocumentService {
     try { sessionStorage.removeItem(IdentityDocumentService.ACCOUNT_KEY); } catch { /* noop */ }
   }
 
+  // Clears verified/OTP state only — keeps account number pre-filled for back-navigation
+  resetVerificationOnly(): void {
+    this._accountVerified.set(false);
+    this._accountError.set(false);
+    this._accountLoading.set(false);
+    this._accountVerifiedInSession.set(false);
+    this._otpError.set(false);
+    this._showOtpFailureModal.set(false);
+  }
+
   // ── Mock OTP validation ───────────────────────────────────────────────────
   // '307394' always fails, anything else succeeds
   async validateOtp(otp: string): Promise<boolean> {

@@ -259,6 +259,8 @@ export class DocumentUploadComponent {
 
   // ── Navigation ────────────────────────────────────────────────────────────
   goBack(): void {
+    // Keep account number pre-filled but force fresh validation on return
+    this.idService.resetVerificationOnly();
     this.router.navigate(['/identity-document-update/verify']);
   }
 }
