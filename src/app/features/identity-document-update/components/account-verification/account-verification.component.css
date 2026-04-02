@@ -164,13 +164,21 @@
   border: 0.5px solid #9ca3af;
   border-radius: 4px;
   text-align: center;
+  vertical-align: middle;
   font-family: var(--font-family);
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 100%;
+  letter-spacing: 0;
   color: var(--color-text-primary);
   outline: none;
   transition: border-color 0.15s ease;
   background: #fff;
+}
+
+.otp-success-check {
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .otp-box:focus {
