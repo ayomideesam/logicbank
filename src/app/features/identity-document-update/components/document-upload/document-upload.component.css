@@ -418,3 +418,168 @@
         width: 100%;
     }
 }
+
+/* ── Modal styles ────────────────────────────────────────────────────────── */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    padding: 32px 28px 28px;
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.modal-icon-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid #002855;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.modal-icon-circle--success {
+    border-color: #34B233;
+}
+
+.modal-icon-circle--failed {
+    border-color: #D20B0B;
+}
+
+.modal-label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.modal-body {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.modal-actions-single {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.btn-modal-outline {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1.5px solid #002855;
+    background: #fff;
+    color: #002855;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-modal-outline:hover {
+    background: #f0f4ff;
+}
+
+.btn-modal-filled {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1.5px solid #002855;
+    background: #002855;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-modal-filled:hover {
+    background: #001e3e;
+}
+
+.btn-modal-filled.full-width,
+.full-width {
+    width: 100%;
+}
+
+/* ── Outstanding Information section ─────────────────────────────────────── */
+.outstanding-section {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1.5px solid #e0e4ea;
+    width: 100%;
+}
+
+.outstanding-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 24px;
+}
+
+.outstanding-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.outstanding-list li {
+    font-size: 14px;
+    color: #333;
+    padding: 4px 0;
+}
+
+.outstanding-list .compulsory {
+    font-weight: 600;
+}
+
+.asterisk {
+    color: #D20B0B;
+    font-weight: 700;
+}
+
+.field-label.required::after {
+    content: " *";
+    color: #D20B0B;
+    font-weight: 700;
+}
