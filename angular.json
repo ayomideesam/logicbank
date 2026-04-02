@@ -65,7 +65,8 @@
               "buildTarget": "logicbank:build:production"
             },
             "development": {
-              "buildTarget": "logicbank:build:development"
+              "buildTarget": "logicbank:build:development",
+              "hmr": true
             }
           },
           "defaultConfiguration": "development"
