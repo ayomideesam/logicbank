@@ -29,6 +29,12 @@
   width: 1312px;
 }
 
+/* ─── Host ─── */
+:host {
+  display: block;
+  width: 100%;
+}
+
 /* ─── Footer ─── */
 .portal-footer {
   width: 100%;
@@ -37,6 +43,7 @@
 
 .footer-img {
   width: 100%;
+  max-width: none; /* override global img { max-width: 100% } */
   height: auto;
   display: block;
 }
