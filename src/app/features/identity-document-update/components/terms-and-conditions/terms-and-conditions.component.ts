@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { PortalHeaderComponent } from '../../../../layout/components/portal-header/portal-header.component';
 import { IdentityDocumentService } from '../../services/identity-document.service';
 
 @Component({
   selector: 'app-terms-and-conditions',
   standalone: true,
-  imports: [PortalHeaderComponent],
+  imports: [],
   templateUrl: './terms-and-conditions.component.html',
   styleUrl: './terms-and-conditions.component.css'
 })

@@ -2,43 +2,6 @@
    Landing Page Component
    ============================================================ */
 
-/* Page wrapper — handles the background shift on search */
-.page-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-bg-default);
-  transition: background-color 0.2s ease;
-  /* CSS custom prop cascades into service-card (pierces encapsulation) */
-  --card-bg: #E5F3FDB2;
-}
-
-.page-wrapper.search-active {
-  background-color: #A8B8C8;
-  --card-bg: #FFFFFF;
-}
-
-/* ─── Portal Banner ─── */
-.portal-banner {
-  width: 100%;
-  background-color: var(--color-primary);
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 13rem;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.15);
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.15);
-}
-
-.portal-banner-title {
-  font-family: var(--font-family);
-  font-size: 24px;
-  font-weight: 400;
-  color: #ffffff;
-  line-height: 1;
-  letter-spacing: 0;
-}
-
 /* ─── Main content area ─── */
 .portal-content {
   flex: 1;

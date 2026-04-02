@@ -1,0 +1,23 @@
+<div class="shell-wrapper" [class.search-active]="searchActive()">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HEADER — shared across every route
+  ════════════════════════════════════════════════════════ -->
+  <app-portal-header
+    [searchActive]="searchActive()"
+    (searchToggle)="onSearchToggle($event)">
+  </app-portal-header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PORTAL BANNER — shared across every route
+  ════════════════════════════════════════════════════════ -->
+  <div class="portal-banner" role="banner">
+    <span class="portal-banner-title">Account Management Portal</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTENT — each route renders here
+  ════════════════════════════════════════════════════════ -->
+  <router-outlet />
+
+</div>

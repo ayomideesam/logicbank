@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { PortalHeaderComponent } from '../../../../layout/components/portal-header/portal-header.component';
 import { IdentityDocumentService } from '../../services/identity-document.service';
 
 @Component({
   selector: 'app-consent-form',
   standalone: true,
-  imports: [PortalHeaderComponent],
+  imports: [],
   templateUrl: './consent-form.component.html',
   styleUrl: './consent-form.component.css'
 })

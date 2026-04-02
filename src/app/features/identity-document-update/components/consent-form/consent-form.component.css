@@ -2,7 +2,6 @@
    Consent Form
    ============================================================ */
 .consent-page {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -33,7 +32,7 @@
 
 .consent-container {
   width: 1145px;
-  min-height: 635px;
+  /* min-height: 635px; */
   display: flex;
   flex-direction: column;
   gap: 10px;
