@@ -65,8 +65,9 @@
 
             <!-- Identity Document Number -->
             <div class="field-group">
-                <label class="field-label" for="docNumber">{{ docType() }} Number</label>
-                <input id="docNumber" class="field-input" type="text" placeholder="Enter {{ docType() }} number"
+                <label class="field-label" for="docNumber">{{ docType() || 'Identity Document' }} Number</label>
+                <input id="docNumber" class="field-input" type="text"
+                    [placeholder]="'Enter ' + (docType() || 'Identity Document') + ' number'"
                     [value]="docNumber()" (input)="docNumber.set($any($event.target).value)" autocomplete="off"
                     aria-required="true" />
             </div>
