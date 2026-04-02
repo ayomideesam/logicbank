@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+/* === Global Styles – First Bank Account Management Portal === */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Brand colours */
+  --color-primary:       #002855;
+  --color-accent:        #FCB62E;
+  --color-link:          #002855;
+  --color-link-hover:    #001a3a;
+  --color-search-border: #1855F5;
+  --color-bg-default:    #FFFFFF;
+  --color-bg-search:     rgba(229, 243, 253, 0.698);
+  --color-check:         #22C55E;
+  --color-card-border:   #E5E7EB;
+  --color-portal-banner-text: #FFFFFF;
+  --color-text-primary:  #111827;
+  --color-text-muted:    #6B7280;
+
+  /* Typography */
+  --font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 16px;
+  background-color: var(--color-bg-default);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-family);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}

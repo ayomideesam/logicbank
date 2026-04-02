@@ -1,0 +1,132 @@
+/* ============================================================
+   Landing Page Component
+   ============================================================ */
+
+/* Page wrapper — handles the background shift on search */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-default);
+  transition: background-color 0.2s ease;
+}
+
+.page-wrapper.search-active {
+  background-color: rgba(229, 243, 253, 0.698);
+}
+
+/* ─── Portal Banner ─── */
+.portal-banner {
+  width: 100%;
+  background-color: var(--color-primary);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 100px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.15);
+}
+
+.portal-banner-title {
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+/* ─── Main content area ─── */
+.portal-content {
+  flex: 1;
+  padding: 32px 100px 64px;
+  max-width: 1512px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Subtitle */
+.portal-subtitle {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 200;
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: 28px;
+}
+
+/* ─── Cards grid: 3 columns ─── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  gap: 24px 56px;
+  width: 1312px;
+}
+
+/* ─── Footer ─── */
+.portal-footer {
+  width: 100%;
+  margin-top: auto;
+}
+
+.footer-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1400px) {
+  .portal-content {
+    padding: 32px 40px 64px;
+  }
+
+  .portal-banner {
+    padding: 0 40px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .portal-content {
+    padding: 24px 24px 48px;
+  }
+
+  .portal-banner {
+    padding: 0 24px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .portal-content {
+    padding: 20px 16px 40px;
+  }
+
+  .portal-banner {
+    padding: 0 16px;
+    height: 52px;
+  }
+
+  .portal-banner-title {
+    font-size: 18px;
+  }
+
+  .portal-subtitle {
+    font-size: 15px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
