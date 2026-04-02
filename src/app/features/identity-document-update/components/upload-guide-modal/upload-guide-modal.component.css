@@ -1,0 +1,168 @@
+/* ============================================================
+   Upload Guide Modal
+   ============================================================ */
+.guide-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.guide-modal {
+    background: #ffffff;
+    width: 480px;
+    border-radius: 8px;
+    padding: 24px 48px 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 92vh;
+    overflow-y: auto;
+}
+
+/* Close button ─────────────────── */
+.guide-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 0;
+    color: #002855;
+}
+
+.guide-close:hover {
+    opacity: 0.7;
+}
+
+/* Title ────────────────────────── */
+.guide-title {
+    font-family: 'Inter', var(--font-family);
+    font-size: 24px;
+    font-weight: 700;
+    color: #002855;
+    margin: 0 0 24px;
+    line-height: 1;
+    padding-right: 24px;
+}
+
+/* Subtitle ─────────────────────── */
+.guide-subtitle {
+    font-family: 'Inter', var(--font-family);
+    font-size: 20px;
+    font-weight: 400;
+    color: #666666;
+    margin: 0 0 24px;
+    line-height: 1.3;
+}
+
+/* Dots ─────────────────────────── */
+.guide-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.guide-dot {
+    width: 12.8px;
+    height: 12.8px;
+    border-radius: 50%;
+    background: #D9D9D9;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.guide-dot.active {
+    width: 16px;
+    height: 16px;
+    background: #002855;
+}
+
+/* Carousel row ─────────────────── */
+.guide-carousel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+/* Nav arrows */
+.guide-arrow {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background: #002855;
+    color: #ffffff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.15s ease;
+}
+
+.guide-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.guide-arrow:not(:disabled):hover {
+    opacity: 0.85;
+}
+
+/* Illustration rectangle */
+.guide-rect {
+    flex: 1;
+    min-height: 292px;
+    background: rgba(217, 217, 217, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.guide-passport-img {
+    max-width: 177px;
+    max-height: 261px;
+    object-fit: contain;
+}
+
+/* Instruction text ─────────────── */
+.guide-instruction {
+    font-family: 'Inter', var(--font-family);
+    font-size: 24px;
+    font-weight: 700;
+    color: #002855;
+    margin: 0 0 24px;
+    line-height: 1.2;
+}
+
+/* Got it button ────────────────── */
+.guide-got-it-btn {
+    width: 100%;
+    height: 48px;
+    background: #002855;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Inter', var(--font-family);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: opacity 0.15s ease;
+}
+
+.guide-got-it-btn:hover {
+    opacity: 0.88;
+}
