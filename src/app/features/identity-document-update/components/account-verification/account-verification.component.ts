@@ -1,5 +1,5 @@
 import {
-  Component, inject, signal, computed, OnDestroy, ElementRef, ViewChildren, QueryList
+  Component, inject, signal, computed, effect, OnInit, OnDestroy, ElementRef, ViewChildren, QueryList
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -14,12 +14,14 @@ import { OtpFailureModalComponent } from '../otp-failure-modal/otp-failure-modal
   templateUrl: './account-verification.component.html',
   styleUrl: './account-verification.component.css'
 })
-export class AccountVerificationComponent implements OnDestroy {
+
+export class AccountVerificationComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   readonly idService = inject(IdentityDocumentService);
 
   // ── Account number field ──────────────────────────────────────────────────
-  accountNumber = signal('');
+  // Initialised from service so persisted value survives a page refresh
+  accountNumber = signal(this.idService.form().accountNumber);
   private debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   onAccountNumberInput(value: string): void {
@@ -84,9 +86,37 @@ export class AccountVerificationComponent implements OnDestroy {
   resendCountdown = signal(10);
   canResend = computed(() => this.resendCountdown() === 0);
   private countdownInterval: ReturnType<typeof setInterval> | null = null;
+  private prevAccountVerified = false;
 
   constructor() {
-    this.startResendCountdown();
+    // Countdown starts only when accountVerified transitions false → true via
+    // an active validateAccount() call — never on component init alone.
+    effect(() => {
+      const verified = this.idService.accountVerified();
+      if (verified && !this.prevAccountVerified) {
+        this.startResendCountdown();
+      } else if (!verified) {
+        if (this.countdownInterval) {
+          clearInterval(this.countdownInterval);
+          this.countdownInterval = null;
+        }
+        this.resendCountdown.set(10);
+      }
+      this.prevAccountVerified = verified;
+    });
+  }
+
+  ngOnInit(): void {
+    // Page-refresh case: accountNumber was restored from sessionStorage but
+    // verified = false. Auto-revalidate so the OTP section re-appears without
+    // the user having to retype their number.
+    const restored = this.accountNumber();
+    if (restored.length === 10 && !this.idService.accountVerified()) {
+      setTimeout(() => {
+        this.idService.patchForm({ accountNumber: restored });
+        this.idService.validateAccount(restored);
+      }, 300);
+    }
   }
 
   private startResendCountdown(): void {
@@ -125,8 +155,8 @@ export class AccountVerificationComponent implements OnDestroy {
   }
 
   // ── Navigation ────────────────────────────────────────────────────────────
-  goBack(): void {
-    this.router.navigate(['/identity-document-update']);
+  goBack(): void {    // Reset all verification state so returning here forces fresh entry
+    this.idService.resetAccountVerification();    this.router.navigate(['/identity-document-update']);
   }
 
   ngOnDestroy(): void {

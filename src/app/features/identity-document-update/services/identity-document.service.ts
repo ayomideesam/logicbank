@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-export type IdDocumentType = 'Voters Card';
+export type IdDocumentType = 'Voters Card' | 'Utility Bill';
 
 export interface UploadedFile {
   file: File;
@@ -56,6 +56,25 @@ export class IdentityDocumentService {
   private readonly _showOtpFailureModal = signal(false);
   readonly showOtpFailureModal = computed(() => this._showOtpFailureModal());
 
+  // ── In-session flag (NOT persisted) — distinguishes fresh validation from page refresh ──
+  private readonly _accountVerifiedInSession = signal(false);
+  readonly accountVerifiedInSession = computed(() => this._accountVerifiedInSession());
+
+  // ── Session persistence ───────────────────────────────────────────────────
+  private static readonly ACCOUNT_KEY = 'idu_account';
+
+  constructor() {
+    try {
+      const raw = sessionStorage.getItem(IdentityDocumentService.ACCOUNT_KEY);
+      if (raw) {
+        // Only the accountNumber is restored — verified state is never persisted.
+        // This means after a page refresh the user sees their number pre-filled
+        // but the component will auto-revalidate before showing the OTP section.
+        this._form.update(s => ({ ...s, accountNumber: raw }));
+      }
+    } catch { /* non-browser environment */ }
+  }
+
   // ── Patchers ─────────────────────────────────────────────────────────────
   patchForm(patch: Partial<IdentityDocumentFormState>): void {
     this._form.update(s => ({ ...s, ...patch }));
@@ -70,6 +89,11 @@ export class IdentityDocumentService {
     // Any valid 10-digit number passes
     if (accountNumber.length === 10) {
       this._accountVerified.set(true);
+      this._accountVerifiedInSession.set(true);
+      try {
+        // Store only the account number — NOT the verified flag
+        sessionStorage.setItem(IdentityDocumentService.ACCOUNT_KEY, accountNumber);
+      } catch { /* noop */ }
     } else {
       this._accountError.set(true);
     }
@@ -79,6 +103,10 @@ export class IdentityDocumentService {
     this._accountVerified.set(false);
     this._accountError.set(false);
     this._accountLoading.set(false);
+    this._accountVerifiedInSession.set(false);
+    // Clear account number from form so navigating back shows a clean field
+    this._form.update(s => ({ ...s, accountNumber: '' }));
+    try { sessionStorage.removeItem(IdentityDocumentService.ACCOUNT_KEY); } catch { /* noop */ }
   }
 
   // ── Mock OTP validation ───────────────────────────────────────────────────
@@ -141,5 +169,7 @@ export class IdentityDocumentService {
     this._accountVerified.set(false);
     this._otpError.set(false);
     this._showOtpFailureModal.set(false);
+    this._accountVerifiedInSession.set(false);
+    try { sessionStorage.removeItem(IdentityDocumentService.ACCOUNT_KEY); } catch { /* noop */ }
   }
 }

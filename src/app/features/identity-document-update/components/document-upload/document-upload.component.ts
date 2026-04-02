@@ -26,7 +26,7 @@ export class DocumentUploadComponent {
 
   // ── Dropdown state ────────────────────────────────────────────────────────
   dropdownOpen = signal(false);
-  readonly docTypeOptions: IdDocumentType[] = ['Voters Card'];
+  readonly docTypeOptions: IdDocumentType[] = ['Voters Card', 'Utility Bill'];
 
   toggleDropdown(): void {
     this.dropdownOpen.update(v => !v);
@@ -138,15 +138,15 @@ export class DocumentUploadComponent {
   // ── Form validity ─────────────────────────────────────────────────────────
   readonly canSubmit = computed(() => {
     const f = this.form();
-    return (
+    const type = this.docType();
+    const base =
       this.nin().trim().length > 0 &&
-      this.docType() !== '' &&
+      type !== '' &&
       this.docNumber().trim().length > 0 &&
-      f.frontFile !== null &&
-      f.backFile !== null &&
-      f.utilityBillFile !== null &&
-      f.termsAccepted
-    );
+      f.termsAccepted;
+    if (type === 'Voters Card') return base && f.frontFile !== null && f.backFile !== null;
+    if (type === 'Utility Bill') return base && f.utilityBillFile !== null;
+    return false;
   });
 
   // ── Navigation ────────────────────────────────────────────────────────────

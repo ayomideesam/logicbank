@@ -39,8 +39,8 @@
       }
     </div>
 
-    <!-- OTP section — only shown after account verified -->
-    @if (idService.accountVerified()) {
+    <!-- OTP section — only shown after account verified AND number is filled -->
+    @if (idService.accountVerified() && accountNumber().length === 10) {
       <div class="field-group">
         <label class="field-label">Phone number verification</label>
 
@@ -62,7 +62,12 @@
               />
             }
           </div>
-
+          <!-- Success checkmark — shown when all 6 digits entered and no error -->
+          @if (otpComplete() && !idService.otpError()) {
+            <svg class="otp-success-check" width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="OTP accepted" role="img">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0454 0.376942C24.2868 0.618371 24.4224 0.945775 24.4224 1.28716C24.4224 1.62854 24.2868 1.95594 24.0454 2.19737L9.57212 16.6719C9.44061 16.8035 9.28446 16.9079 9.1126 16.9791C8.94073 17.0503 8.75653 17.087 8.5705 17.087C8.38447 17.087 8.20026 17.0503 8.0284 16.9791C7.85654 16.9079 7.70039 16.8035 7.56888 16.6719L0.37729 9.48036C0.257674 9.36075 0.16279 9.21874 0.0980543 9.06246C0.0333189 8.90617 1.26035e-09 8.73867 0 8.56951C-1.26035e-09 8.40034 0.0333189 8.23284 0.0980543 8.07655C0.16279 7.92027 0.257674 7.77826 0.37729 7.65865C0.496905 7.53903 0.638909 7.44415 0.795194 7.37941C0.951479 7.31468 1.11898 7.28136 1.28815 7.28136C1.45731 7.28136 1.62481 7.31468 1.7811 7.37941C1.93738 7.44415 2.07939 7.53903 2.199 7.65865L8.57178 14.0314L22.2237 0.376942C22.4651 0.135586 22.7925 0 23.1339 0C23.4753 0 23.804 0.135586 24.0454 0.376942Z" fill="#34B233"/>
+            </svg>
+          }
           <div class="resend-group">
             <span class="resend-label">Didn't receive OTP?</span>
             @if (canResend()) {
