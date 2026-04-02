@@ -35,6 +35,18 @@ export class DocumentUploadComponent {
   selectDocType(type: IdDocumentType): void {
     this.docType.set(type);
     this.dropdownOpen.set(false);
+
+    // Clear uploaded files that don't match the selected document type
+    if (type === 'Voters Card') {
+      // Clear utility bill file
+      this.idService.patchForm({ utilityBillFile: null });
+      this.utilityFileError.set('');
+    } else if (type === 'Utility Bill') {
+      // Clear front and back files
+      this.idService.patchForm({ frontFile: null, backFile: null });
+      this.frontFileError.set('');
+      this.backFileError.set('');
+    }
   }
 
   // ── File drag state ───────────────────────────────────────────────────────
