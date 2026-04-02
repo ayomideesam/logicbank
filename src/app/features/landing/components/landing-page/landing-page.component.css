@@ -9,10 +9,13 @@
   flex-direction: column;
   background-color: var(--color-bg-default);
   transition: background-color 0.2s ease;
+  /* CSS custom prop cascades into service-card (pierces encapsulation) */
+  --card-bg: #E5F3FDB2;
 }
 
 .page-wrapper.search-active {
-  background-color: rgba(229, 243, 253, 0.698);
+  background-color: #A8B8C8;
+  --card-bg: #FFFFFF;
 }
 
 /* ─── Portal Banner ─── */
@@ -22,7 +25,7 @@
   height: 64px;
   display: flex;
   align-items: center;
-  padding: 0 100px;
+  padding: 0 13rem;
   border-top: 0.5px solid rgba(255, 255, 255, 0.15);
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.15);
 }

@@ -15,6 +15,22 @@
   height: 94px;
   max-width: 1512px;
   margin: 0 auto;
+  gap: 24px;
+}
+
+/* Search active: controls expand to fill the center between logo and help btn */
+.header-inner.search-active {
+  justify-content: flex-start;
+}
+
+.header-inner.search-active .header-controls {
+  flex: 1;
+}
+
+.header-inner.search-active .search-input-wrapper {
+  flex: 1;
+  width: auto;
+  max-width: none;
 }
 
 /* Logo */
