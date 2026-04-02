@@ -26,32 +26,36 @@
 
 .upload-content {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    padding: 32px 100px 64px;
+    padding: 30px 250px 64px;
+    max-width: 1512px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .upload-container {
-    width: 1145px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
 /* ── Back button ───────────────────────────────────────────────── */
+/* ── Title row ───────────────────────────────────────────────── */
+.page-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 .back-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
-    font-family: var(--font-family);
-    font-size: 14px;
-    font-weight: 500;
-    color: #002855;
-    width: fit-content;
+    padding: 4px;
+    flex-shrink: 0;
 }
 
 .back-btn:hover {
@@ -67,8 +71,8 @@
 
 .page-title {
     font-family: var(--font-family);
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 400;
     color: var(--color-text-primary, #002855);
     margin: 0;
 }
@@ -569,7 +573,7 @@
 }
 
 .outstanding-list--centered {
-    text-align: center;
+    text-align: left;
     gap: 12px;
     margin: 8px 0 16px;
 }
