@@ -78,6 +78,8 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
   private async submitOtp(): Promise<void> {
     const success = await this.idService.validateOtp(this.otpFull());
     if (success) {
+      // Show the success checkmark for 2.5s before navigating
+      await new Promise(r => setTimeout(r, 2500));
       this.router.navigate(['/identity-document-update/upload']);
     }
   }
