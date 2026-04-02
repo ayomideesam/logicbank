@@ -35,10 +35,10 @@ export class DocumentUploadComponent {
   private router = inject(Router);
   readonly idService = inject(IdentityDocumentService);
 
-  // ── Form field signals ────────────────────────────────────────────────────
-  nin = signal('');
-  docNumber = signal('');
-  docType = signal<IdDocumentType | ''>('');
+  // ── Form field signals (restored from service so nav away+back keeps values) ──
+  nin = signal(this.idService.form().nin);
+  docNumber = signal(this.idService.form().documentNumber);
+  docType = signal<IdDocumentType | ''>(this.idService.form().documentType);
 
   // ── Dropdown state ────────────────────────────────────────────────────────
   dropdownOpen = signal(false);
@@ -78,21 +78,37 @@ export class DocumentUploadComponent {
     return '';
   }
 
+  // ── Duplicate check helper ────────────────────────────────────────────────
+  private isSameFile(a: File, b: { name: string; file: File } | null): boolean {
+    if (!b) return false;
+    return a.name === b.name && a.size === b.file.size;
+  }
+
   // ── File select handlers ──────────────────────────────────────────────────
   onFrontFileSelect(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
     const err = this.validateFile(file);
-    this.frontFileError.set(err);
-    if (!err) this.idService.setFrontFile(file);
+    if (err) { this.frontFileError.set(err); return; }
+    if (this.isSameFile(file, this.form().backFile)) {
+      this.frontFileError.set('Front and Back documents must be different files.');
+      return;
+    }
+    this.frontFileError.set('');
+    this.idService.setFrontFile(file);
   }
 
   onBackFileSelect(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
     const err = this.validateFile(file);
-    this.backFileError.set(err);
-    if (!err) this.idService.setBackFile(file);
+    if (err) { this.backFileError.set(err); return; }
+    if (this.isSameFile(file, this.form().frontFile)) {
+      this.backFileError.set('Front and Back documents must be different files.');
+      return;
+    }
+    this.backFileError.set('');
+    this.idService.setBackFile(file);
   }
 
   onUtilityFileSelect(event: Event): void {
@@ -123,9 +139,19 @@ export class DocumentUploadComponent {
     const file = event.dataTransfer?.files?.[0];
     if (!file) return;
     const err = this.validateFile(file);
-    if (slot === 'front') { this.frontFileError.set(err); if (!err) this.idService.setFrontFile(file); }
-    else if (slot === 'back') { this.backFileError.set(err); if (!err) this.idService.setBackFile(file); }
-    else { this.utilityFileError.set(err); if (!err) this.idService.setUtilityBillFile(file); }
+    if (slot === 'front') {
+      if (err) { this.frontFileError.set(err); return; }
+      if (this.isSameFile(file, this.form().backFile)) {
+        this.frontFileError.set('Front and Back documents must be different files.'); return;
+      }
+      this.frontFileError.set(''); this.idService.setFrontFile(file);
+    } else if (slot === 'back') {
+      if (err) { this.backFileError.set(err); return; }
+      if (this.isSameFile(file, this.form().frontFile)) {
+        this.backFileError.set('Front and Back documents must be different files.'); return;
+      }
+      this.backFileError.set(''); this.idService.setBackFile(file);
+    } else { this.utilityFileError.set(err); if (!err) this.idService.setUtilityBillFile(file); }
   }
 
   // ── Terms ─────────────────────────────────────────────────────────────────
