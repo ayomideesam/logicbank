@@ -5,6 +5,7 @@ import {
   IdentityDocumentService,
   IdDocumentType
 } from '../../services/identity-document.service';
+import { UploadGuideModalComponent } from '../upload-guide-modal/upload-guide-modal.component';
 
 const MAX_FILE_SIZE_MB = 10;
 const ACCEPTED_TYPES = ['application/pdf', 'image/jpeg'];
@@ -26,7 +27,7 @@ export const ANNUAL_TURNOVER_OPTIONS = [
 @Component({
   selector: 'app-document-upload',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, UploadGuideModalComponent],
   templateUrl: './document-upload.component.html',
   styleUrl: './document-upload.component.css'
 })
@@ -256,6 +257,42 @@ export class DocumentUploadComponent {
   onSuccessHome(): void { this.idService.resetAll(); this.router.navigate(['/']); }
   onFailedClose(): void { this.showFailedModal.set(false); }
   onFailedHome(): void { this.idService.resetAll(); this.router.navigate(['/']); }
+
+  // ── Upload guide modal ────────────────────────────────────────────────────
+  showGuide = signal(false);
+  guideSide = signal<'front' | 'back' | 'utility'>('front');
+
+  /** Called when user clicks an empty upload zone. Shows guide for id doc zones,
+   *  goes straight to file picker when a file already exists or zone is utility. */
+  openZone(slot: 'front' | 'back' | 'utility'): void {
+    if (slot === 'utility') {
+      this.triggerFileInput('utility');
+      return;
+    }
+    const hasFile = slot === 'front' ? this.form().frontFile : this.form().backFile;
+    if (hasFile) {
+      this.triggerFileInput(slot);
+    } else {
+      this.guideSide.set(slot);
+      this.showGuide.set(true);
+    }
+  }
+
+  closeGuide(): void { this.showGuide.set(false); }
+
+  onGuideConfirmed(): void {
+    this.showGuide.set(false);
+    const side = this.guideSide();
+    // Small delay lets the modal finish closing before the native file-picker opens
+    setTimeout(() => this.triggerFileInput(side), 60);
+  }
+
+  private triggerFileInput(side: 'front' | 'back' | 'utility'): void {
+    const id = side === 'front' ? 'frontFileInput'
+             : side === 'back'  ? 'backFileInput'
+             : 'utilityFileInput';
+    (document.getElementById(id) as HTMLInputElement | null)?.click();
+  }
 
   // ── Navigation ────────────────────────────────────────────────────────────
   goBack(): void {
