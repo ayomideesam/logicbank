@@ -22,11 +22,23 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
   // ── Account number field ──────────────────────────────────────────────────
   // Initialised from service so persisted value survives a page refresh
   accountNumber = signal(this.idService.form().accountNumber);
+  accountTouched = signal(false);
   private debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+  readonly accountFieldError = computed(() => {
+    if (!this.accountTouched()) return '';
+    const v = this.accountNumber().trim();
+    if (!v) return 'Account number is required.';
+    if (v.length !== 10) return 'Account number must be exactly 10 digits.';
+    return '';
+  });
+
+  onAccountBlur(): void { this.accountTouched.set(true); }
 
   onAccountNumberInput(value: string): void {
     const digits = value.replace(/\D/g, '').slice(0, 10);
     this.accountNumber.set(digits);
+    this.accountTouched.set(true);
     this.idService.resetAccountVerification();
 
     if (this.debounceTimer) clearTimeout(this.debounceTimer);

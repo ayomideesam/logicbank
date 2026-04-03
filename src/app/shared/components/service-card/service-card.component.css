@@ -111,3 +111,47 @@
         min-height: unset;
     }
 }
+
+@media (max-width: 480px) {
+    .service-card {
+        padding: 16px;
+        gap: 10px;
+    }
+
+    .card-title {
+        font-size: 17px;
+    }
+
+    .req-text {
+        font-size: 14px;
+    }
+
+    .card-link {
+        font-size: 17px;
+    }
+
+    .card-icon-box {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .service-card {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .card-title {
+        font-size: 15px;
+    }
+
+    .req-text {
+        font-size: 13px;
+    }
+
+    .card-link {
+        font-size: 15px;
+    }
+}

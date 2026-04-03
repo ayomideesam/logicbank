@@ -100,3 +100,32 @@
 .btn-cancel:hover {
   opacity: 0.9;
 }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .modal-card {
+    width: 92vw;
+    padding: 32px 20px 24px;
+  }
+
+  .modal-text-group { width: 100%; }
+  .modal-actions { width: 100%; }
+
+  .btn-close,
+  .btn-cancel { width: 100%; font-size: 14px; }
+}
+
+@media (max-width: 380px) {
+  .modal-card {
+    width: 96vw;
+    padding: 24px 14px 20px;
+    gap: 16px;
+  }
+
+  .modal-title { font-size: 17px; }
+  .modal-subtitle { font-size: 13px; }
+  .modal-actions { flex-direction: column; gap: 10px; }
+
+  .btn-close,
+  .btn-cancel { width: 100%; height: 38px; font-size: 13px; }
+}

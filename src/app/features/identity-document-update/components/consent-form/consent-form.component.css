@@ -125,3 +125,57 @@
     padding: 32px 40px 64px;
   }
 }
+
+@media (max-width: 768px) {
+  .consent-content {
+    padding: 28px 24px 48px;
+  }
+
+  .portal-banner {
+    padding: 0 24px;
+  }
+
+  .portal-banner-title { font-size: 20px; }
+  .consent-title { font-size: 20px; }
+  .consent-subtitle { font-size: 17px; }
+}
+
+@media (max-width: 480px) {
+  .consent-content {
+    padding: 20px 16px 32px;
+  }
+
+  .portal-banner {
+    padding: 0 16px;
+    height: 52px;
+  }
+
+  .portal-banner-title { font-size: 18px; }
+  .consent-title { font-size: 18px; }
+  .consent-subtitle { font-size: 15px; }
+  .consent-body p { font-size: 13px; line-height: 1.5; }
+
+  .consent-actions { flex-direction: column; gap: 10px; }
+  .btn-reject,
+  .btn-agree { width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .consent-content {
+    padding: 14px 10px 24px;
+  }
+
+  .portal-banner {
+    padding: 0 10px;
+    height: 48px;
+  }
+
+  .portal-banner-title { font-size: 16px; }
+  .consent-title { font-size: 16px; }
+  .consent-subtitle { font-size: 14px; }
+  .consent-body p { font-size: 12px; }
+  .consent-container { gap: 6px; }
+
+  .btn-reject,
+  .btn-agree { height: 38px; font-size: 13px; }
+}

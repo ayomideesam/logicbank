@@ -417,6 +417,102 @@
     }
 }
 
+@media (max-width: 768px) {
+    .upload-content {
+        padding: 24px 24px 40px;
+    }
+
+    .portal-banner {
+        padding: 0 24px;
+    }
+
+    .page-title { font-size: 18px; }
+    .portal-banner-title { font-size: 20px; }
+
+    .field-input { height: 52px; font-size: 14px; }
+    .field-label { font-size: 15px; }
+
+    .upload-zone { min-height: 100px; padding: 12px; }
+
+    .btn-submit { width: 100%; }
+    .btn-modal-outline,
+    .btn-modal-filled { font-size: 13px; padding: 9px 12px; }
+}
+
+@media (max-width: 480px) {
+    .upload-content {
+        padding: 16px 16px 32px;
+    }
+
+    .portal-banner {
+        padding: 0 16px;
+        height: 52px;
+    }
+
+    .portal-banner-title { font-size: 18px; }
+    .page-title { font-size: 16px; }
+    .page-title-row { gap: 10px; }
+
+    .field-input { height: 48px; font-size: 13px; padding: 0 12px; }
+    .field-label { font-size: 14px; }
+    .upload-container { gap: 18px; }
+
+    .upload-zone-label { font-size: 11px; }
+    .choose-file-label,
+    .upload-hint,
+    .file-name,
+    .file-size { font-size: 11px; }
+
+    .disclaimer { font-size: 11px; }
+    .terms-link { font-size: 13px; }
+    .terms-row { gap: 12px; }
+
+    .modal-card {
+        max-width: 95vw;
+        padding: 24px 16px 20px;
+    }
+    .modal-title { font-size: 16px; }
+    .modal-body { font-size: 13px; }
+    .modal-actions { gap: 8px; }
+    .btn-modal-outline,
+    .btn-modal-filled { font-size: 12px; padding: 8px 10px; }
+
+    .outstanding-title { font-size: 17px; }
+    .dropdown-item { padding: 10px 12px; font-size: 13px; }
+}
+
+@media (max-width: 360px) {
+    .upload-content {
+        padding: 12px 10px 24px;
+    }
+
+    .portal-banner {
+        padding: 0 10px;
+        height: 48px;
+    }
+
+    .portal-banner-title { font-size: 16px; }
+    .page-title { font-size: 15px; }
+    .page-title-row { gap: 8px; }
+
+    .field-input { height: 44px; font-size: 12px; padding: 0 10px; }
+    .field-label { font-size: 13px; }
+    .upload-container { gap: 14px; }
+
+    .upload-zone { min-height: 80px; padding: 10px; }
+    .choose-file-label,
+    .upload-hint { font-size: 10px; }
+
+    .terms-link { font-size: 12px; }
+
+    .modal-card { padding: 20px 12px 16px; }
+    .modal-title { font-size: 15px; }
+    .modal-body { font-size: 12px; }
+
+    .outstanding-title { font-size: 16px; }
+    .btn-submit { height: 38px; font-size: 13px; }
+}
+
 /* ── Modal styles ────────────────────────────────────────────────────────── */
 .modal-backdrop {
     position: fixed;
@@ -596,4 +692,15 @@
     content: " *";
     color: #D20B0B;
     font-weight: 700;
+}
+
+.field-error {
+    font-family: var(--font-family);
+    font-size: 12px;
+    color: #D20B0B;
+    margin: 2px 0 0;
+}
+
+.input-error {
+    border-color: #D20B0B;
 }

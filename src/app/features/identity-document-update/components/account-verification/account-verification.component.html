@@ -22,15 +22,19 @@
         type="text"
         class="field-input"
         [class.input-verified]="idService.accountVerified()"
-        [class.input-error]="idService.accountError()"
+        [class.input-error]="idService.accountError() || accountFieldError()"
         placeholder="Enter your 10-digits account number"
         [value]="accountNumber()"
         (input)="onAccountNumberInput($any($event.target).value)"
+        (blur)="onAccountBlur()"
         maxlength="10"
         inputmode="numeric"
         autocomplete="off"
         aria-describedby="accountNumberHint"
       />
+      @if (accountFieldError() && !idService.accountLoading()) {
+        <p class="field-error" role="alert">{{ accountFieldError() }}</p>
+      }
       @if (idService.accountLoading()) {
         <div class="account-loader" role="status" aria-label="Validating account number">
           <span class="loader-spinner"></span>

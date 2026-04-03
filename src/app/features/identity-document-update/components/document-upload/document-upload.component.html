@@ -28,15 +28,18 @@
             <!-- NIN -->
             <div class="field-group">
                 <label class="field-label" for="nin">NIN</label>
-                <input id="nin" class="field-input" type="text" placeholder="Enter your NIN" [value]="nin()"
-                    (input)="nin.set($any($event.target).value)" autocomplete="off" aria-required="true" />
+                <input id="nin" class="field-input" [class.input-error]="ninError()" type="text" placeholder="Enter your NIN" [value]="nin()"
+                    (input)="nin.set($any($event.target).value)" (blur)="onNinBlur()" autocomplete="off" aria-required="true" maxlength="11" inputmode="numeric" />
+                @if (ninError()) {
+                <p class="field-error" role="alert">{{ ninError() }}</p>
+                }
             </div>
 
             <!-- Identity Document Type (Custom Dropdown) -->
             <div class="field-group">
                 <label class="field-label" for="docTypeBtn">Identity Document Type</label>
                 <div class="dropdown-wrapper" [class.open]="dropdownOpen()">
-                    <button id="docTypeBtn" class="field-input dropdown-trigger" type="button"
+                    <button id="docTypeBtn" class="field-input dropdown-trigger" [class.input-error]="docTypeError()" type="button"
                         (click)="toggleDropdown()" [attr.aria-expanded]="dropdownOpen()" aria-haspopup="listbox">
                         <span [class.placeholder]="!docType()">
                             @if (docType()) {
@@ -62,14 +65,20 @@
                     </ul>
                     }
                 </div>
+                @if (docTypeError()) {
+                <p class="field-error" role="alert">{{ docTypeError() }}</p>
+                }
             </div>
 
             <!-- Identity Document Number -->
             <div class="field-group">
                 <label class="field-label" for="docNumber">{{ docType() || 'Identity Document' }} Number</label>
-                <input id="docNumber" class="field-input" type="text"
+                <input id="docNumber" class="field-input" [class.input-error]="docNumberError()" type="text"
                     [placeholder]="'Enter ' + (docType() || 'Identity Document') + ' number'" [value]="docNumber()"
-                    (input)="docNumber.set($any($event.target).value)" autocomplete="off" aria-required="true" />
+                    (input)="docNumber.set($any($event.target).value)" (blur)="onDocNumberBlur()" autocomplete="off" aria-required="true" />
+                @if (docNumberError()) {
+                <p class="field-error" role="alert">{{ docNumberError() }}</p>
+                }
             </div>
 
             <!-- File Upload Zones (Front + Back for all doc types) -->
@@ -267,7 +276,7 @@
                     <div class="field-group">
                         <label class="field-label required" for="occupationBtn">Occupation</label>
                         <div class="dropdown-wrapper" [class.open]="occupationOpen()">
-                            <button id="occupationBtn" class="field-input dropdown-trigger" type="button"
+                            <button id="occupationBtn" class="field-input dropdown-trigger" [class.input-error]="occupationError()" type="button"
                                 (click)="toggleOccupationOpen()" [attr.aria-expanded]="occupationOpen()"
                                 aria-haspopup="listbox">
                                 <span [class.placeholder]="!occupation()">
@@ -290,13 +299,16 @@
                             </ul>
                             }
                         </div>
+                        @if (occupationError()) {
+                        <p class="field-error" role="alert">{{ occupationError() }}</p>
+                        }
                     </div>
 
                     <!-- Nature of Business dropdown -->
                     <div class="field-group">
                         <label class="field-label required" for="natureBtn">Nature of Business</label>
                         <div class="dropdown-wrapper" [class.open]="natureOfBusinessOpen()">
-                            <button id="natureBtn" class="field-input dropdown-trigger" type="button"
+                            <button id="natureBtn" class="field-input dropdown-trigger" [class.input-error]="natureOfBusinessError()" type="button"
                                 (click)="toggleNatureOfBusinessOpen()" [attr.aria-expanded]="natureOfBusinessOpen()"
                                 aria-haspopup="listbox">
                                 <span [class.placeholder]="!natureOfBusiness()">
@@ -320,6 +332,9 @@
                             </ul>
                             }
                         </div>
+                        @if (natureOfBusinessError()) {
+                        <p class="field-error" role="alert">{{ natureOfBusinessError() }}</p>
+                        }
                     </div>
 
                     <!-- Employer Name -->

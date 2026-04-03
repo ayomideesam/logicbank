@@ -166,3 +166,37 @@
 .guide-got-it-btn:hover {
     opacity: 0.88;
 }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+    .guide-modal {
+        width: 92vw;
+        padding: 20px 20px 24px;
+    }
+
+    .guide-title { font-size: 19px; }
+    .guide-subtitle { font-size: 16px; }
+    .guide-instruction { font-size: 19px; }
+    .guide-rect { min-height: 220px; }
+    .guide-arrow { width: 32px; height: 32px; min-width: 32px; }
+    .guide-got-it-btn { height: 44px; font-size: 15px; }
+}
+
+@media (max-width: 380px) {
+    .guide-modal {
+        width: 96vw;
+        padding: 16px 14px 20px;
+    }
+
+    .guide-title { font-size: 17px; margin-bottom: 16px; }
+    .guide-subtitle { font-size: 14px; margin-bottom: 16px; }
+    .guide-instruction { font-size: 17px; margin-bottom: 16px; }
+    .guide-rect { min-height: 180px; }
+    .guide-dots { margin-bottom: 20px; }
+    .guide-carousel { margin-bottom: 20px; }
+    .guide-dot { width: 10px; height: 10px; }
+    .guide-dot.active { width: 13px; height: 13px; }
+    .guide-arrow { width: 28px; height: 28px; min-width: 28px; }
+    .guide-got-it-btn { height: 40px; font-size: 14px; }
+    .guide-passport-img { max-width: 130px; max-height: 200px; }
+}
