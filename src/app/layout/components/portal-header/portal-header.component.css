@@ -204,3 +204,54 @@
     height: 36px;
   }
 }
+
+@media (max-width: 480px) {
+  .header-inner {
+    padding: 0 12px;
+    height: 60px;
+    gap: 10px;
+  }
+
+  .logo-img {
+    height: 30px;
+  }
+
+  .help-btn {
+    width: 72px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .help-btn span {
+    font-size: 12px;
+  }
+
+  .search-icon-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .search-input-wrapper {
+    height: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-inner {
+    padding: 0 8px;
+    gap: 6px;
+  }
+
+  .logo-img {
+    height: 26px;
+  }
+
+  .help-btn {
+    width: 64px;
+    height: 28px;
+  }
+
+  .help-btn span {
+    font-size: 11px;
+  }
+}

@@ -45,12 +45,53 @@ export class DocumentUploadComponent {
   dropdownOpen = signal(false);
   readonly docTypeOptions: IdDocumentType[] = ['Voters Card', 'Passport', 'Identity Document'];
 
+  // ── Touched state for validation ──────────────────────────────────────────
+  ninTouched = signal(false);
+  docTypeTouched = signal(false);
+  docNumberTouched = signal(false);
+
+  // ── Computed validation errors ────────────────────────────────────────────
+  readonly ninError = computed(() => {
+    if (!this.ninTouched()) return '';
+    const v = this.nin().trim();
+    if (!v) return 'NIN is required.';
+    if (!/^\d+$/.test(v)) return 'NIN must contain only digits.';
+    if (v.length !== 11) return 'NIN must be exactly 11 digits.';
+    return '';
+  });
+
+  readonly docTypeError = computed(() => {
+    if (!this.docTypeTouched()) return '';
+    if (!this.docType()) return 'Please select a document type.';
+    return '';
+  });
+
+  readonly docNumberError = computed(() => {
+    if (!this.docNumberTouched()) return '';
+    const v = this.docNumber().trim();
+    const type = this.docType();
+    if (!v) return 'Document number is required.';
+    if (type === 'Passport') {
+      if (!/^[A-Za-z0-9]{9}$/.test(v)) return 'Passport number must be 9 alphanumeric characters.';
+    } else if (type === 'Voters Card') {
+      if (!/^[A-Za-z0-9]{19}$/.test(v)) return 'Voters Card number must be 19 alphanumeric characters.';
+    } else if (type === 'Identity Document') {
+      if (!/^\d{12}$/.test(v)) return 'Identity Document number must be 12 digits.';
+    }
+    return '';
+  });
+
+  onNinBlur(): void { this.ninTouched.set(true); }
+  onDocNumberBlur(): void { this.docNumberTouched.set(true); }
+
   toggleDropdown(): void { this.dropdownOpen.update(v => !v); }
 
   selectDocType(type: IdDocumentType): void {
     this.docType.set(type);
     this.docNumber.set('');
     this.dropdownOpen.set(false);
+    this.docTypeTouched.set(true);
+    this.docNumberTouched.set(false);
     // All doc types now show Front+Back — clear utility bill if lingering
     this.idService.patchForm({ frontFile: null, backFile: null, utilityBillFile: null });
     this.frontFileError.set('');
@@ -188,7 +229,11 @@ export class DocumentUploadComponent {
 
   // ── Submit flow ───────────────────────────────────────────────────────────
   onSubmit(): void {
-    if (!this.canSubmit()) return;
+    // Mark all fields as touched to show validation errors
+    this.ninTouched.set(true);
+    this.docTypeTouched.set(true);
+    this.docNumberTouched.set(true);
+    if (!this.canSubmit() || this.ninError() || this.docTypeError() || this.docNumberError()) return;
     this.idService.patchForm({ nin: this.nin(), documentType: this.docType(), documentNumber: this.docNumber() });
     // First submit always shows "Additional document required"
     this.showAdditionalDocModal.set(true);
@@ -227,12 +272,26 @@ export class DocumentUploadComponent {
   employerAddress = signal('');
   annualTurnover = signal('');
 
+  occupationTouched = signal(false);
+  natureOfBusinessTouched = signal(false);
+
+  readonly occupationError = computed(() => {
+    if (!this.occupationTouched()) return '';
+    if (!this.occupation()) return 'Occupation is required.';
+    return '';
+  });
+
+  readonly natureOfBusinessError = computed(() => {
+    if (!this.natureOfBusinessTouched()) return '';
+    if (!this.natureOfBusiness()) return 'Nature of business is required.';
+    return '';
+  });
   readonly occupationOptions = OCCUPATION_OPTIONS;
   readonly natureOfBusinessOptions = NATURE_OF_BUSINESS_OPTIONS;
   readonly annualTurnoverOptions = ANNUAL_TURNOVER_OPTIONS;
 
-  selectOccupation(v: string): void { this.occupation.set(v); this.occupationOpen.set(false); }
-  selectNatureOfBusiness(v: string): void { this.natureOfBusiness.set(v); this.natureOfBusinessOpen.set(false); }
+  selectOccupation(v: string): void { this.occupation.set(v); this.occupationOpen.set(false); this.occupationTouched.set(true); }
+  selectNatureOfBusiness(v: string): void { this.natureOfBusiness.set(v); this.natureOfBusinessOpen.set(false); this.natureOfBusinessTouched.set(true); }
   selectAnnualTurnover(v: string): void { this.annualTurnover.set(v); this.annualTurnoverOpen.set(false); }
 
   toggleOccupationOpen(): void { this.occupationOpen.update(v => !v); }
@@ -245,6 +304,8 @@ export class DocumentUploadComponent {
 
   // Final submit is randomly success or failed (50/50 mock)
   onFinalSubmit(): void {
+    this.occupationTouched.set(true);
+    this.natureOfBusinessTouched.set(true);
     if (!this.canFinalSubmit()) return;
     const success = Math.random() >= 0.5;
     if (success) {
