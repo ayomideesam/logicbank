@@ -9,7 +9,7 @@
     </button>
 
     <!-- Title -->
-    <h2 class="guide-title">Upload proof of {{ docType }}</h2>
+    <h2 class="guide-title">Upload proof of {{ docType() }}</h2>
 
     <!-- Subtitle -->
     <p class="guide-subtitle">Follow the instructions below to make sure your photo meets our requirements</p>
@@ -36,7 +36,7 @@
 
         <!-- ── Slide 1: clean ID document (or passport image) ── -->
         @if (currentSlide() === 0) {
-          @if (docType === 'Passport') {
+        @if (docType() === 'Passport') {
             <img src="assets/img/proof_of_passport.png" class="guide-passport-img" alt="How to photograph your passport"/>
           } @else {
             <!-- Clean ID document SVG: same as slide 3 minus grey overlay -->

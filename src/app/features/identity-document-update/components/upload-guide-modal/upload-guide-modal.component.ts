@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { IdDocumentType } from '../../services/identity-document.service';
 
 @Component({
@@ -9,15 +9,15 @@ import { IdDocumentType } from '../../services/identity-document.service';
   styleUrl: './upload-guide-modal.component.css'
 })
 export class UploadGuideModalComponent {
-  @Input({ required: true }) docType: IdDocumentType | '' = '';
-  @Output() confirmed = new EventEmitter<void>();
-  @Output() closed = new EventEmitter<void>();
+  readonly docType = input.required<IdDocumentType | ''>();
+  readonly confirmed = output<void>();
+  readonly closed = output<void>();
 
   currentSlide = signal(0);
   readonly totalSlides = 3;
 
   get slideTexts(): string[] {
-    const dt = this.docType || 'Identity Document';
+    const dt = this.docType() || 'Identity Document';
     return [
       `Place your ${dt} on a flat surface and make sure that the data is visible.`,
       `Make sure you do not cover your ${dt} data (finger, paperclip etc).`,

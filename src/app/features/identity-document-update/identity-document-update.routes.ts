@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { consentGuard, verifiedGuard } from './identity-document-update.guard';
 
 export const IDENTITY_DOCUMENT_UPDATE_ROUTES: Routes = [
   {
@@ -10,6 +11,7 @@ export const IDENTITY_DOCUMENT_UPDATE_ROUTES: Routes = [
   },
   {
     path: 'verify',
+    canActivate: [consentGuard],
     loadComponent: () =>
       import('./components/account-verification/account-verification.component').then(
         m => m.AccountVerificationComponent
@@ -17,6 +19,7 @@ export const IDENTITY_DOCUMENT_UPDATE_ROUTES: Routes = [
   },
   {
     path: 'upload',
+    canActivate: [verifiedGuard],
     loadComponent: () =>
       import('./components/document-upload/document-upload.component').then(
         m => m.DocumentUploadComponent
@@ -24,6 +27,7 @@ export const IDENTITY_DOCUMENT_UPDATE_ROUTES: Routes = [
   },
   {
     path: 'terms',
+    canActivate: [consentGuard],
     loadComponent: () =>
       import('./components/terms-and-conditions/terms-and-conditions.component').then(
         m => m.TermsAndConditionsComponent

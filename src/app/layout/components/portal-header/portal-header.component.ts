@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Component, Input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // See ANGULAR-19-STANDARDS.md — Standalone First (no CommonModule)
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class PortalHeaderComponent {
   @Input() searchActive = false;
-  @Output() searchToggle = new EventEmitter<boolean>();
+  readonly searchToggle = output<boolean>();
 
   searchQuery = '';
 
