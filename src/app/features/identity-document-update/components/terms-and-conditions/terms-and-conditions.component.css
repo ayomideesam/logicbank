@@ -8,22 +8,6 @@
   background: #fff;
 }
 
-.portal-banner {
-  width: 100%;
-  background-color: #002855;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 100px;
-}
-
-.portal-banner-title {
-  font-family: var(--font-family);
-  font-size: 24px;
-  font-weight: 400;
-  color: #ffffff;
-}
-
 .terms-content {
   flex: 1;
   display: flex;
@@ -140,11 +124,6 @@
     padding: 28px 24px 40px;
   }
 
-  .portal-banner {
-    padding: 0 24px;
-  }
-
-  .portal-banner-title { font-size: 20px; }
   .terms-title { font-size: 26px; }
   .terms-body p { font-size: 18px; }
 }
@@ -154,12 +133,6 @@
     padding: 20px 16px 32px;
   }
 
-  .portal-banner {
-    padding: 0 16px;
-    height: 52px;
-  }
-
-  .portal-banner-title { font-size: 18px; }
   .terms-title { font-size: 22px; }
   .terms-body p { font-size: 15px; line-height: 1.5; }
   .terms-container { gap: 16px; }
@@ -174,12 +147,6 @@
     padding: 14px 10px 24px;
   }
 
-  .portal-banner {
-    padding: 0 10px;
-    height: 48px;
-  }
-
-  .portal-banner-title { font-size: 16px; }
   .terms-title { font-size: 18px; }
   .terms-body p { font-size: 13px; line-height: 1.4; }
   .terms-container { gap: 12px; }

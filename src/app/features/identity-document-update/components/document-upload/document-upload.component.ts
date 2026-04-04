@@ -211,9 +211,18 @@ export class DocumentUploadComponent {
   readonly canSubmit = computed(() => {
     const f = this.form();
     const type = this.docType();
-    const base = this.nin().trim().length > 0 && type !== '' && this.docNumber().trim().length > 0 && f.termsAccepted;
-    // All types require front + back
-    return base && f.frontFile !== null && f.backFile !== null;
+    const nin = this.nin().trim();
+    const docNum = this.docNumber().trim();
+    // NIN must be exactly 11 digits
+    if (!/^\d{11}$/.test(nin)) return false;
+    // Document type must be selected
+    if (!type) return false;
+    // Document number format per type
+    if (type === 'Passport' && !/^[A-Za-z0-9]{9}$/.test(docNum)) return false;
+    if (type === 'Voters Card' && !/^[A-Za-z0-9]{19}$/.test(docNum)) return false;
+    if (type === 'Identity Document' && !/^\d{12}$/.test(docNum)) return false;
+    // Must have accepted terms and uploaded both files
+    return f.termsAccepted && f.frontFile !== null && f.backFile !== null;
   });
 
   // Update button (shown after utility upload section appears)
@@ -229,11 +238,11 @@ export class DocumentUploadComponent {
 
   // ── Submit flow ───────────────────────────────────────────────────────────
   onSubmit(): void {
-    // Mark all fields as touched to show validation errors
+    // Mark all fields as touched to surface validation errors on screen
     this.ninTouched.set(true);
     this.docTypeTouched.set(true);
     this.docNumberTouched.set(true);
-    if (!this.canSubmit() || this.ninError() || this.docTypeError() || this.docNumberError()) return;
+    if (!this.canSubmit()) return;
     this.idService.patchForm({ nin: this.nin(), documentType: this.docType(), documentNumber: this.docNumber() });
     // First submit always shows "Additional document required"
     this.showAdditionalDocModal.set(true);
