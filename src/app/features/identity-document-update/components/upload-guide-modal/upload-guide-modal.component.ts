@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { IdDocumentType } from '../../services/identity-document.service';
 
 @Component({
@@ -6,6 +6,7 @@ import { IdDocumentType } from '../../services/identity-document.service';
   standalone: true,
   imports: [],
   templateUrl: './upload-guide-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './upload-guide-modal.component.css'
 })
 export class UploadGuideModalComponent {

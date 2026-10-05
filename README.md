@@ -1,8 +1,8 @@
 # LogicBank – Digital Account Maintenance Web Portal
 
 [![CI](https://github.com/ayomideesam/logicbank/actions/workflows/ci.yml/badge.svg)](https://github.com/ayomideesam/logicbank/actions/workflows/ci.yml)
-![Angular](https://img.shields.io/badge/Angular-20.3-DD0031?logo=angular)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)
+![Angular](https://img.shields.io/badge/Angular-22.2-DD0031?logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript)
 ![Node.js](https://img.shields.io/badge/Node.js-22-339933?logo=node.js)
 ![Netlify](https://img.shields.io/badge/Deployed-Netlify-00C7B7?logo=netlify)
 ![License](https://img.shields.io/badge/License-Private-lightgrey)
@@ -118,16 +118,16 @@ Revealed inline after "Complete now":
 
 | Layer | Technology |
 |---|---|
-| Framework | Angular 20.3 (Standalone Components) |
-| Language | TypeScript 5.9 |
+| Framework | Angular 22.2 (Standalone Components) |
+| Language | TypeScript 6.0 |
 | Rendering | SPA (SSR disabled for Netlify static hosting) |
 | Styling | CSS (component-scoped, custom properties) |
 | State Management | Angular Signals + computed() + effect() |
 | Routing | Angular Router — lazy-loaded by route |
 | Forms | Template-driven with signal-backed state |
-| Build | Angular CLI 20.3 + @angular-devkit/build-angular |
+| Build | Angular CLI 22.2 + @angular/build (esbuild) |
 | Deployment | Netlify (static hosting + SPA redirects) |
-| Testing | Jasmine + Karma |
+| Testing | Vitest + jsdom |
 | Version Control | Git — `Akhigbe` (dev) → `main` (production) |
 
 ---
@@ -229,9 +229,9 @@ src/
 ## Getting Started
 
 ### Prerequisites
-- Node.js `>= 20.19` or `>= 22.12`
+- Node.js 22 (`^22.22.3`), 24 (`^24.15.0`) or `>= 26`, as Angular 22 requires (pinned to 22 in `.nvmrc`)
 - npm `>= 10.x`
-- Angular CLI `20.3.x`
+- Angular CLI `22.2.x`
 
 ### Installation
 
@@ -256,7 +256,7 @@ The application will be available at `http://localhost:4200`.
 | `npm start` | Start dev server at localhost:4200 with HMR |
 | `npm run build` | Production build to dist/logicbank |
 | `npm run watch` | Build in watch mode (development) |
-| `npm test` | Run unit tests via Karma |
+| `npm test` | Run unit tests with Vitest |
 
 ---
 
@@ -389,24 +389,24 @@ The application guides customers through a fully validated, multi-step process:
 
 | Layer | Technology |
 |---|---|
-| Framework | Angular 20.3 (Standalone Components) |
-| Language | TypeScript 5.9 |
+| Framework | Angular 22.2 (Standalone Components) |
+| Language | TypeScript 6.0 |
 | Styling | CSS / SCSS (component-scoped) |
 | State Management | RxJS / Angular Signals |
 | Routing | Angular Router (lazy-loaded feature modules) |
 | Forms | Angular Reactive Forms |
 | SSR | Angular Universal (`@angular/ssr`) |
-| Testing | Jasmine + Karma |
-| Build | Angular CLI 20.3 |
+| Testing | Vitest + jsdom |
+| Build | Angular CLI 22.2 |
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js `>= 20.19` or `>= 22.12`
+- Node.js 22 (`^22.22.3`), 24 (`^24.15.0`) or `>= 26`, as Angular 22 requires (pinned to 22 in `.nvmrc`)
 - npm `>= 10.x`
-- Angular CLI `20.3.x`
+- Angular CLI `22.2.x`
 
 ### Installation
 
@@ -431,7 +431,7 @@ The application will be available at `http://localhost:4200`.
 | `npm start` | Start dev server at localhost:4200 |
 | `npm run build` | Production build |
 | `npm run watch` | Build in watch mode (development) |
-| `npm test` | Run unit tests via Karma |
+| `npm test` | Run unit tests with Vitest |
 | `npm run serve:ssr:logicbank` | Serve SSR production build |
 
 ---
@@ -512,7 +512,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests with [Vitest](https://vitest.dev).
 
 ## Running end-to-end tests
 

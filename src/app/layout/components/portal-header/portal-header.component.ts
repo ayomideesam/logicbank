@@ -1,4 +1,4 @@
-import { Component, Input, output, signal } from '@angular/core';
+import { Component, Input, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // See ANGULAR-19-STANDARDS.md — Standalone First (no CommonModule)
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './portal-header.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './portal-header.component.css'
 })
 export class PortalHeaderComponent {

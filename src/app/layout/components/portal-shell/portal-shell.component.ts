@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PortalHeaderComponent } from '../portal-header/portal-header.component';
 
@@ -11,6 +11,7 @@ import { PortalHeaderComponent } from '../portal-header/portal-header.component'
   standalone: true,
   imports: [RouterOutlet, PortalHeaderComponent],
   templateUrl: './portal-shell.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './portal-shell.component.css'
 })
 export class PortalShellComponent {

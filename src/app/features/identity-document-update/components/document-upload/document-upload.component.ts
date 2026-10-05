@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {
@@ -29,6 +29,7 @@ export const ANNUAL_TURNOVER_OPTIONS = [
   standalone: true,
   imports: [FormsModule, UploadGuideModalComponent],
   templateUrl: './document-upload.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './document-upload.component.css'
 })
 

@@ -1,5 +1,6 @@
 import {
-  Component, inject, signal, computed, effect, OnInit, OnDestroy, ElementRef, ViewChildren, QueryList
+  Component, inject, signal, computed, effect, OnInit, OnDestroy, ElementRef, ViewChildren, QueryList,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +13,7 @@ import { OtpFailureModalComponent } from '../otp-failure-modal/otp-failure-modal
   standalone: true,
   imports: [FormsModule, NgDecimalPipe, OtpFailureModalComponent],
   templateUrl: './account-verification.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './account-verification.component.css'
 })
 
