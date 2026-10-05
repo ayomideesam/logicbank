@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { IdentityDocumentService } from '../../services/identity-document.service';
 
@@ -7,6 +7,7 @@ import { IdentityDocumentService } from '../../services/identity-document.servic
   standalone: true,
   imports: [],
   templateUrl: './consent-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './consent-form.component.css'
 })
 export class ConsentFormComponent {

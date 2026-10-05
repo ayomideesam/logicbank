@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { IdentityDocumentService } from '../../services/identity-document.service';
 
@@ -7,6 +7,7 @@ import { IdentityDocumentService } from '../../services/identity-document.servic
   standalone: true,
   imports: [],
   templateUrl: './terms-and-conditions.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './terms-and-conditions.component.css'
 })
 export class TermsAndConditionsComponent {
