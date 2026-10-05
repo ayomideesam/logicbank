@@ -229,7 +229,7 @@ src/
 ## Getting Started
 
 ### Prerequisites
-- Node.js `>= 22.22.3` or `>= 24.15` (pinned to 22 in `.nvmrc`)
+- Node.js 22 (`^22.22.3`), 24 (`^24.15.0`) or `>= 26`, as Angular 22 requires (pinned to 22 in `.nvmrc`)
 - npm `>= 10.x`
 - Angular CLI `22.2.x`
 
@@ -404,7 +404,7 @@ The application guides customers through a fully validated, multi-step process:
 ## Getting Started
 
 ### Prerequisites
-- Node.js `>= 22.22.3` or `>= 24.15` (pinned to 22 in `.nvmrc`)
+- Node.js 22 (`^22.22.3`), 24 (`^24.15.0`) or `>= 26`, as Angular 22 requires (pinned to 22 in `.nvmrc`)
 - npm `>= 10.x`
 - Angular CLI `22.2.x`
 
