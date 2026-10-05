@@ -1,5 +1,6 @@
 # LogicBank – Digital Account Maintenance Web Portal
 
+[![CI](https://github.com/ayomideesam/logicbank/actions/workflows/ci.yml/badge.svg)](https://github.com/ayomideesam/logicbank/actions/workflows/ci.yml)
 ![Angular](https://img.shields.io/badge/Angular-19.2.x-DD0031?logo=angular)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6.x-3178C6?logo=typescript)
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?logo=node.js)
