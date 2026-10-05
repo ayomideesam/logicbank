@@ -1,9 +1,9 @@
 # LogicBank – Digital Account Maintenance Web Portal
 
 [![CI](https://github.com/ayomideesam/logicbank/actions/workflows/ci.yml/badge.svg)](https://github.com/ayomideesam/logicbank/actions/workflows/ci.yml)
-![Angular](https://img.shields.io/badge/Angular-19.2.x-DD0031?logo=angular)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.6.x-3178C6?logo=typescript)
-![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?logo=node.js)
+![Angular](https://img.shields.io/badge/Angular-20.3-DD0031?logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)
+![Node.js](https://img.shields.io/badge/Node.js-22-339933?logo=node.js)
 ![Netlify](https://img.shields.io/badge/Deployed-Netlify-00C7B7?logo=netlify)
 ![License](https://img.shields.io/badge/License-Private-lightgrey)
 
@@ -118,14 +118,14 @@ Revealed inline after "Complete now":
 
 | Layer | Technology |
 |---|---|
-| Framework | Angular 19.2.x (Standalone Components) |
-| Language | TypeScript 5.6.x |
+| Framework | Angular 20.3 (Standalone Components) |
+| Language | TypeScript 5.9 |
 | Rendering | SPA (SSR disabled for Netlify static hosting) |
 | Styling | CSS (component-scoped, custom properties) |
 | State Management | Angular Signals + computed() + effect() |
 | Routing | Angular Router — lazy-loaded by route |
 | Forms | Template-driven with signal-backed state |
-| Build | Angular CLI 19.2.23 + @angular-devkit/build-angular |
+| Build | Angular CLI 20.3 + @angular-devkit/build-angular |
 | Deployment | Netlify (static hosting + SPA redirects) |
 | Testing | Jasmine + Karma |
 | Version Control | Git — `Akhigbe` (dev) → `main` (production) |
@@ -134,7 +134,7 @@ Revealed inline after "Complete now":
 
 ## Architecture Decisions
 
-### Angular 19 Modern Patterns — Applied Throughout
+### Modern Angular Patterns — Applied Throughout
 - **Standalone components** — no NgModules anywhere
 - **Signals** (`signal()`, `computed()`, `effect()`) for all reactive state
 - **New control flow** — `@if`, `@for`, `@else` instead of `*ngIf` / `*ngFor`
@@ -231,7 +231,7 @@ src/
 ### Prerequisites
 - Node.js `>= 20.19` or `>= 22.12`
 - npm `>= 10.x`
-- Angular CLI `19.2.x`
+- Angular CLI `20.3.x`
 
 ### Installation
 
@@ -389,15 +389,15 @@ The application guides customers through a fully validated, multi-step process:
 
 | Layer | Technology |
 |---|---|
-| Framework | Angular 19.2.x (Standalone Components) |
-| Language | TypeScript 5.6.x |
+| Framework | Angular 20.3 (Standalone Components) |
+| Language | TypeScript 5.9 |
 | Styling | CSS / SCSS (component-scoped) |
 | State Management | RxJS / Angular Signals |
 | Routing | Angular Router (lazy-loaded feature modules) |
 | Forms | Angular Reactive Forms |
 | SSR | Angular Universal (`@angular/ssr`) |
 | Testing | Jasmine + Karma |
-| Build | Angular CLI 19.2.x |
+| Build | Angular CLI 20.3 |
 
 ---
 
@@ -406,7 +406,7 @@ The application guides customers through a fully validated, multi-step process:
 ### Prerequisites
 - Node.js `>= 20.19` or `>= 22.12`
 - npm `>= 10.x`
-- Angular CLI `19.2.x`
+- Angular CLI `20.3.x`
 
 ### Installation
 
